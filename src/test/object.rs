@@ -1,11 +1,12 @@
 use xf::{
     gl::{bitmap::Bitmap, color::Color}, 
-    num::{irect::ir, ivec2::IVec2}
+    num::{irect::{ir, self, rect}, ivec2::IVec2}
 };
 
 use crate::{
-    graphics::buffer::buffer_mut, 
     io::controller::get_dir_down, 
+    game::{game_data::GameData, draw_data::DrawData}, 
+    graphics::textures::TextureId
 };
 
 
@@ -20,8 +21,9 @@ impl Object {
         self.pos += get_dir_down() * 10;
     }
 
-    pub fn draw(&self, org: IVec2) {
-        let rect = ir(self.pos, IVec2::splat(20));
-        buffer_mut().draw_rect(rect, COLOR)
+    pub fn draw(&self, d: &mut DrawData, org: IVec2) {
+        let texture = d.textures().get(TextureId::Player);
+        let src = rect(0, 0, 16, 16);
+        d.buffer().draw_texture(&texture, src, self.pos);
     }
 }

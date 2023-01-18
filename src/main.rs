@@ -3,11 +3,11 @@
 #![allow(unused_imports)]
 //#![allow(non_camel_case_types)]
 #![allow(unused_variables)]
-//#![allow(unused_mut)]
+#![allow(unused_mut)]
 //#![allow(unused_must_use)]
 
 use crate::{
-    graphics::{window::set_scale, buffer::buffer_mut}, 
+    graphics::window::set_scale, 
     consts::SCREEN_SIZE
 };
 
@@ -25,8 +25,6 @@ async fn main() {
 
     set_scale(2);
     
-    buffer_mut().init(SCREEN_SIZE);
-
     test::game::run().await;
     //game::run().await;
 }
