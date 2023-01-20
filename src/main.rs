@@ -15,6 +15,9 @@ mod consts;
 mod common;
 mod graphics;
 mod io;
+mod level;
+mod entities;
+mod systems;
 mod game;
 mod test;
 
@@ -25,6 +28,6 @@ async fn main() {
 
     set_scale(2);
     
-    test::game::run().await;
+    test::test_game::run().await;
     //game::run().await;
 }

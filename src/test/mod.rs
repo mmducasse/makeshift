@@ -1,2 +1,2 @@
 pub mod object;
-pub mod game;
+pub mod test_game;

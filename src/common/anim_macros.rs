@@ -30,7 +30,7 @@
 macro_rules! row_2_l {
     ($dir:ident, $len:expr, $dur:expr, $origin:expr) => {
         {
-            use crate::common::dir_h::DirH;
+            use xf::data::dir_h::DirH;
             use xf::num::ivec2::i2;
             use xf::gl::anim::{Seq, seq_row};
 

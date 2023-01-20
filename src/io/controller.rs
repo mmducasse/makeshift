@@ -1,5 +1,5 @@
 use macroquad::prelude::{is_key_down, KeyCode};
-use xf::{data::dir4::Dir4, num::ivec2::IVec2};
+use xf::{data::{dir4::Dir4, dir_h::DirH}, num::ivec2::IVec2};
 
 const KEY_DIRS: [(KeyCode, Dir4); 4] = [
     (KeyCode::Up, Dir4::N),
@@ -19,4 +19,14 @@ pub fn get_dir_down() -> IVec2 {
     }
 
     total_dir
+}
+
+pub fn get_dir_h_down() -> Option<DirH> {
+    if is_key_down(KeyCode::Left) {
+        Some(DirH::L)
+    } else if is_key_down(KeyCode::Right) {
+        Some(DirH::R)
+    } else {
+        None
+    }
 }

@@ -1,0 +1,78 @@
+
+
+Fight Game:
+
+   Theme: Makeshift
+     - Choose one of two boss items after defeating them
+     - OR use level debris to power up weapons
+
+    Starting Abilities
+      - Run
+      - Dash
+      - Wall Jump
+      - Slash
+
+    Boss Abilities:
+      - Wrecking Ball
+      - Stealth
+      - Arm Cannon
+      - Missiles
+      - Flamethrower
+      - Power Kick
+      - Spin Attack
+      - Double Jump
+      - Flipping Double Jump
+      - Smash-up Double Jump
+
+    Bosses:
+      - Wrecking Ball Boss (Urban Level): 
+        - Wrecking Ball (knocks down walls you're hiding behind)
+        - WB Spin (spins WB in front to block attacks)
+        - Jet Pack (pursues you if hiding on a higher floor)
+        - High Knee (knocks you if you get close)
+        - Power Kick
+        - DROPS:
+          - Chain Grab (lets you grab and throw poised enemies)
+          - Wrecking Ball (dash thru obstacles)
+          - Power kick (charged attack that knocks back poised enemy)
+
+      - Agile Boss (Train Level):
+        - Arm Cannon
+        - Spin Kick (knocks player back with high speed)
+        - Slashing Jump (does melee damage while jumping)
+        - DROPS:
+          - Arm Cannon
+          - Slashing Jump
+
+      - Stealth Boss (Airship Level):
+        - Stealth (hides/appears at random points for a duration)
+        - Power Kick (kicks you back if he catches you on the ground while in stealth mode)
+        - Downward Slam
+        - DROPS:
+          - Active Camo
+          - Downward Slam
+
+      - Pufferfish Boss (Gondola Level):
+        - Spike Defense (extends spikes to hurt player if too close)
+        - Spike Blast (fires spikes in 360 degree radius)
+        - Spike roll (rolls toward player; invulnerable during this)
+        - DROPS:
+          - Spike Blast
+          - Spike Defense
+
+      - Flame Boss (Sewer level):
+        - Flamethrower (Fires flamethrower into pipe forcing player out)
+        - Flame blast (Fires flamethrower into floor vent; all vents expell flames)
+        - Flame wall (wall of fire forces player into pipes)
+
+    Arenas:
+      - Urban with destructible buildings
+      - Train (each car is a different layout)
+        1. Box car, 2 floors
+        2. Flat car with vents that expell fire
+        3. Trap door car: half of the car's floor lifts up opening a hole
+      - Tanks rolling through arena
+      - Gondola passing by mountain peaks or islands
+        - Floor panels drop occasionally, dumping player onto land (or water) below
+      - Cargo bay of airship (rectangular arena with hole in middle of floor; hole gradually gets wider)
+      - Sewer with pipes around main arena
