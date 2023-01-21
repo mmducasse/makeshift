@@ -1,6 +1,6 @@
 use xf::num::{ivec2::IVec2, irect::IRect};
 
-use crate::{game::game_data::GameData, entities::entity::Entity};
+use crate::{game::game_data::GameData, entities::{entity::Entity, type_::EntityType}};
 
 
 pub struct Camera {
@@ -15,7 +15,7 @@ impl Camera {
 
     //pub fn update(subject_a_bounds: IRect, subject_b_bounds: IRect) {  
     pub fn update(&mut self, g: &GameData) {
-        let Some(player) = &g.player else { return };
+        let Some(player) = &g.entities.get(EntityType::Player) else { return };
         let bounds_a = player.bounds();
         let scene_bounds = g.level.bounds();
 

@@ -9,7 +9,7 @@ pub trait Entity {
     fn data(&self) -> &EntityData;
     fn data_mut(&mut self) -> &mut EntityData;
 
-    fn update(&mut self, d: &mut GameData);
+    fn update(&mut self, g: &mut GameData);
     fn draw(&self, d: &mut DrawData, org: IVec2);
 
     fn bounds(&self) -> IRect {
