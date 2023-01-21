@@ -9,7 +9,7 @@ use crate::{
 use super::{
     player::Player, 
     state::State, 
-    consts::{JUMP_RELEASE_VEL_Y, JUMP_VEL_Y, WALLSLIDE_VEL_Y, RUN_SPEED_X, MAX_FALL_VEL_Y}, 
+    consts::*, 
     state_dash, 
     update_data::PlayerUpdateData, 
     state_normal
@@ -30,7 +30,7 @@ pub fn update(player: &mut Player, d: &mut PlayerUpdateData) {
         player.vel.x = 0.0;
     }
 
-    if !is_key_down(KeyCode::Z) {
+    if !is_key_down(JUMP_KEY) {
         player.vel.y = player.vel.y.max(JUMP_RELEASE_VEL_Y);
     }
 
@@ -44,7 +44,7 @@ pub fn update(player: &mut Player, d: &mut PlayerUpdateData) {
 
     if player.vel.y > 0.0 && deflection.y < 0 {
         player.vel.y = 0.0;
-        if is_key_down(KeyCode::Down) {
+        if is_key_down(DASH_KEY) {
             state_dash::start(player.dir, player);
         } else {
             state_normal::start(player, d);

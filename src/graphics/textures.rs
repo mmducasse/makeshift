@@ -7,6 +7,7 @@ use super::buffer::xf_texture_from_bytes;
 #[derive(Hash, Clone, Copy, PartialEq, Eq)]
 pub enum TextureId {
     Player,
+    TestBoss,
 }
 
 const COUNT: usize = 7;
@@ -15,7 +16,8 @@ const fn get_bytes(id: TextureId) -> &'static [u8] {
     use TextureId::*;
 
     match id {
-        Player => include_bytes!("../../assets/Player.png"),
+        Player => include_bytes!("../../assets/Sprites/Player.png"),
+        TestBoss => include_bytes!("../../assets/Sprites/TestBoss.png"),
     }
 }
 

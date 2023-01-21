@@ -14,7 +14,7 @@ impl Default for Tile {
     }
 }
 
-#[derive(Clone, Copy, PartialEq, Eq)]
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
 pub enum TileType {
     Empty,
     Wall,

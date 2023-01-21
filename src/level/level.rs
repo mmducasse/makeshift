@@ -13,22 +13,20 @@ pub struct Level {
 impl Level {
     pub fn draw(&self, view: IRect, d: &mut DrawData) {
 
-        let view_p16 = ir(view.pos / P16, view.size / P16).expand(1);
+        let view_p16 = ir(view.pos / P16, view.size / P16).expand(0); // todo: expand by 1
 
         for tile_pos_p16 in view_p16.iter() {
-            if let Some(&src) = self.tilemap.tile_srcs.get(tile_pos_p16) {
-                if let Some(src) = src {
-                    let tile = self.tilemap.tileset.tiles.get(src).unwrap();
-                    //let frames = tile.frames.unwrap_or(1);
+            if let Some(Some(src)) = self.tilemap.tile_srcs.get(tile_pos_p16) {
+                let tile = self.tilemap.tileset.tiles.get(*src).unwrap();
+                //let frames = tile.frames.unwrap_or(1);
 
-                    let src_offset_x = 0; //(frame_num() / TILE_ANIMATION_RATE) % frames;
-                    let src = src + i2(src_offset_x as i32, 0);
+                let src_offset_x = 0; //(frame_num() / TILE_ANIMATION_RATE) % frames;
+                let src = *src + i2(src_offset_x as i32, 0);
 
-                    let src = ir(src * P16, P16);
-                    let dst_pt = tile_pos_p16 * P16;
-        
-                    d.buffer().draw_texture(&self.tilemap.tileset.texture, src, dst_pt - view.pos);
-                }
+                let src = ir(src * P16, P16);
+                let dst_pt = tile_pos_p16 * P16;
+    
+                d.buffer().draw_texture(&self.tilemap.tileset.texture, src, dst_pt - view.pos);
             }
         }
     }
@@ -43,10 +41,11 @@ impl Level {
 
     pub fn tile_type_at(&self, pos: IVec2) -> TileType {
         let pos_p16 = pos / P16;
-        if let Some(tile) = self.tilemap.get(pos_p16) {
-            tile.type_
-        } else {
-            TileType::Empty
-        }
+
+        if !self.bounds().contains(pos) { return TileType::Wall }
+
+        self.tilemap.get(pos_p16)
+                    .map(|t| t.type_)
+                    .unwrap_or(TileType::Wall)
     }
 }

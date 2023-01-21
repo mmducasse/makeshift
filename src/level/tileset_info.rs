@@ -21,5 +21,5 @@ pub struct TilesetInfo {
 
 const TEST_TILESET: TilesetInfo = TilesetInfo {
     tileset: include_bytes!("../../assets/Tilesets/TestTileset.tsj"),
-    image: include_bytes!("../../assets/TestTileset.png"),
+    image: include_bytes!("../../assets/Tilesets/TestTileset.png"),
 };

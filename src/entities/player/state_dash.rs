@@ -9,7 +9,7 @@ use crate::{
 use super::{
     player::Player, 
     state::State, 
-    consts::{DASH_TIME_S, DASH_SPEED_X}, 
+    consts::*, 
     state_jump, 
     update_data::PlayerUpdateData, 
     state_normal
@@ -24,12 +24,12 @@ pub fn start(dir: DirH, player: &mut Player) {
 }
 
 pub fn update(player: &mut Player, d: &mut PlayerUpdateData) {
-    if !is_key_down(KeyCode::Down) ||
+    if !is_key_down(DASH_KEY) ||
        player.state_timer.is_done() {
         state_normal::start(player, d);
     }
 
-    if is_key_pressed(KeyCode::Z) {
+    if is_key_pressed(JUMP_KEY) {
         state_jump::start(player);
     }
 

@@ -1,4 +1,6 @@
-use xf::num::{irect::IRect, ivec2::IVec2};
+use xf::num::{irect::{IRect, rect, ir}, ivec2::IVec2};
+
+use crate::{game::game_data::GameData, consts::P16};
 
 /// Returns the deflection vector that results from colliding the
 /// box collider with the tilemap.
@@ -78,4 +80,26 @@ fn keep_inside(collider: &mut IRect, room_bounds: IRect) {
     else if collider.bottom() > room_bounds.bottom() {
         collider.pos.y = room_bounds.bottom() - collider.h();
     }
+}
+
+pub fn get_colliders_near(center: IVec2, g: &GameData) -> Vec<IRect> {
+    const AREA: IRect = rect(-1, -1, 3, 3);
+    let mut vec = vec![];
+
+    let pos_p16 = center / P16;
+
+    // Get bounds of colliding tiles.
+    let tilemap = &g.level.tilemap;
+
+    for offset in AREA.iter() {
+        let tile_p16_pos = pos_p16 + offset;
+        if let Some(tile) = tilemap.get(tile_p16_pos) {
+            if tile.type_.is_impassable() {
+                let tile_bounds = ir(tile_p16_pos * P16, P16);
+
+                vec.push(tile_bounds);
+            }
+        }
+    }
+    vec
 }

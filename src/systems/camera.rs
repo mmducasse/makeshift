@@ -1,5 +1,7 @@
 use xf::num::{ivec2::IVec2, irect::IRect};
 
+use crate::game::game_data::GameData;
+
 
 pub struct Camera {
     pos: IVec2,
@@ -12,8 +14,12 @@ impl Camera {
     }
 
     //pub fn update(subject_a_bounds: IRect, subject_b_bounds: IRect) {  
-    pub fn update(&mut self, subject_a_bounds: IRect, scene_bounds: IRect) {
-        let desired_center = subject_a_bounds.center();
+    pub fn update(&mut self, g: &GameData) {
+        let Some(player) = &g.player else { return };
+        let bounds_a = player.bounds();
+        let scene_bounds = g.level.bounds();
+
+        let desired_center = bounds_a.center();
         let desired_view = IRect::centered_at(desired_center, self.size);
 
         self.pos = desired_view.keep_inside(scene_bounds).pos;

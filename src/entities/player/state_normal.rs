@@ -6,7 +6,7 @@ use crate::{
     consts::GRAVITY,
 };
 
-use super::{player::Player, state::State, consts::RUN_SPEED_X, state_jump, state_dash, update_data::PlayerUpdateData};
+use super::{player::Player, state::State, consts::*, state_jump, state_dash, update_data::PlayerUpdateData};
 
 
 pub fn start(player: &mut Player, d: &mut PlayerUpdateData) {
@@ -24,10 +24,10 @@ pub fn update(player: &mut Player, d: &PlayerUpdateData) {
     }
 
     if player.state == State::Run &&
-       is_key_pressed(KeyCode::Down) {
+       is_key_pressed(DASH_KEY) {
         state_dash::start(player.dir, player);
     }
-    else if is_key_pressed(KeyCode::Z) {
+    else if is_key_pressed(JUMP_KEY) {
         state_jump::start(player);
     }
 

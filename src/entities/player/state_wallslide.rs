@@ -4,7 +4,7 @@ use crate::systems::collision::collide;
 
 use super::{
     player::Player,
-    consts::WALLSLIDE_VEL_Y, 
+    consts::*, 
     state_jump, 
     update_data::PlayerUpdateData, 
     state_normal
@@ -19,7 +19,7 @@ pub fn update(player: &mut Player, d: &mut PlayerUpdateData) {
     let deflection = collide(player.bounds(), d.get_colliders_near(player.bounds().center()), Some(d.game_data.level.bounds()));
     player.pos += deflection.as_fvec2();
 
-    if is_key_pressed(KeyCode::Z) {
+    if is_key_pressed(JUMP_KEY) {
         state_jump::start(player);
         return;
     }

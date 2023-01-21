@@ -19,15 +19,13 @@ pub async fn run() {
     let mut camera = Camera::new(IVec2::ZERO, SCREEN_SIZE);
     let mut g = GameData::new();
     let mut d = DrawData::new();
-    let mut player = Player::new(i2(20, 20));
 
     loop {
 
-        player.update(&mut g);
-        camera.update(player.bounds(), g.level.bounds());
+        g.update();
+        camera.update(&g);
 
-        g.level.draw(ir(camera.pos(), SCREEN_SIZE), &mut d);
-        player.draw(&mut d, camera.pos());
+        g.draw(&mut d, camera.pos());
         
         d.buffer().render();
         next_frame().await;
