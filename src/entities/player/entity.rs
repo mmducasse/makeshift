@@ -1,8 +1,9 @@
-use xf::num::ivec2::IVec2;
+use macroquad::prelude::{KeyCode, is_key_pressed};
+use xf::num::{ivec2::{IVec2, i2}, fvec2::f2};
 
-use crate::{entities::{entity::Entity, data::EntityData}, game::{game_data::GameData, draw_data::DrawData}, graphics::textures::TextureId};
+use crate::{entities::{entity::Entity, data::EntityData, spawn::spawn_entity, bullets::bullet::Bullet, type_::EntityType}, game::{game_data::GameData, draw_data::DrawData}, graphics::textures::TextureId};
 
-use super::player::Player;
+use super::{player::Player, state::State, state_hurt};
 
 
 
@@ -12,14 +13,23 @@ impl Entity for Player {
 
     fn update(&mut self, g: &mut GameData) {
         self.state_timer.increment();
+        self.grace_timer.decrement();
         self.state.update(self, g);
+
+        // todo delete
+        if is_key_pressed(KeyCode::X) {
+            let vel_x = self.dir.unit().x as f32 * 4.0;
+            spawn_entity(Bullet::new(true, self.bounds().center(), f2(vel_x, 0.)), g);
+        }
 
         self.animator.set_key(self.state.to_anim_key(self), false);
         self.animator.update();
     }
 
     fn draw(&self, d: &mut DrawData, org: IVec2) {
-        let texture = d.textures().get(TextureId::Player);
-        self.animator.draw(&texture, self.d.pos.as_ivec2() - org, d.buffer());
+        if self.grace_timer.remaining() % 2 == 0 {
+            let texture = d.textures().get(TextureId::Player);
+            self.animator.draw(&texture, self.d.pos.as_ivec2() - org, d.buffer());
+        }
     }
 }

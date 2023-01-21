@@ -11,7 +11,7 @@ use super::{
     state::State, 
     consts::*, 
     state_dash, 
-    state_normal
+    state_normal, state_util::check_collide_enemy
 };
 
 pub fn start(player: &mut Player) {
@@ -57,4 +57,6 @@ pub fn update(player: &mut Player, g: &mut GameData) {
        (player.d.vel.x * deflection.x as f32) < 0.0 {
         player.state = State::WallSlide
     }
+
+    check_collide_enemy(player, g);
 }

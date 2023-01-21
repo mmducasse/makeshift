@@ -3,7 +3,7 @@ use std::rc::Rc;
 use xf::{
     num::{fvec2::FVec2, ivec2::{IVec2, i2}, irect::{IRect, ir, rect}}, 
     data::dir_h::DirH, 
-    time::timer::Timer, 
+    time::{timer::Timer, countdown::Countdown}, 
     gl::{texture::Texture, anim::Animator}
 };
 
@@ -23,6 +23,7 @@ pub struct Player {
     pub dir: DirH,
     pub(super) state: State,
     pub(super) state_timer: Timer,
+    pub(super) grace_timer: Countdown,
     pub animator: Animator<AnimKey>
 }
 
@@ -35,6 +36,7 @@ impl Player {
             dir: DirH::R,
             state: State::Idle,
             state_timer: Timer::new(0),
+            grace_timer: Countdown::new(0),
             animator: animator(),
         }
     }

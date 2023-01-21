@@ -29,12 +29,13 @@ pub struct TestBoss {
     pub animator: Animator<AnimKey>,
 }
 
+const DAMAGE: i32 = 1;
 const COLLIDER: IRect = rect(2, 2, 12, 14);
 
 impl TestBoss {
     pub fn new(pos: IVec2) -> Self {
         Self {
-            d: EntityData::new(EntityType::Enemy)
+            d: EntityData::new(EntityType::Enemy(DAMAGE))
                 .at(pos)
                 .with_collider(COLLIDER),
             dir: DirH::R,

@@ -28,6 +28,12 @@ pub async fn run() {
         g.update();
         camera.update(&g);
 
+        // Debug
+
+        //println!("count = {}", g.entities.debug_count());
+
+        // End
+
         g.draw(&mut d, camera.pos());
         
         d.buffer().render();

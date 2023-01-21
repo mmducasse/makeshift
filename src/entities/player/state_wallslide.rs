@@ -6,7 +6,7 @@ use super::{
     player::Player,
     consts::*, 
     state_jump,
-    state_normal
+    state_normal, state_util::check_collide_enemy
 };
 
 
@@ -29,4 +29,6 @@ pub fn update(player: &mut Player, g: &mut GameData) {
     else if deflection.x == 0 {
         state_normal::start(player, g);
     }
+
+    check_collide_enemy(player, g);
 }

@@ -7,7 +7,8 @@ use crate::game::{draw_data::DrawData, game_data::GameData};
 use super::{
     entity::Entity, 
     player::player::Player, 
-    bosses::test_boss::test_boss::TestBoss, type_::EntityType
+    bosses::test_boss::test_boss::TestBoss, 
+    type_::EntityType, dummy::Dummy,
 };
 
 
@@ -48,7 +49,8 @@ impl Entities {
     pub fn update(g: &mut GameData) {
         // Pull out each entity to give them a mutable reference to g while updating.
         for idx in 0..g.entities.all.len() {
-            let mut entity = replace(&mut g.entities.all[idx], None);
+            let dummy: Option<Box<dyn Entity>> = Some(Box::new(Dummy::new()));
+            let mut entity = replace(&mut g.entities.all[idx], dummy);
 
             if let Some(entity) = &mut entity {
                 entity.update(g);
@@ -73,6 +75,10 @@ impl Entities {
         for e in self.iter() {
             e.draw(d, org);
         }
+    }
+
+    pub fn debug_count(&self) -> usize {
+        self.iter().count()
     }
 }
 

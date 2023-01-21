@@ -1,19 +1,22 @@
 use macroquad::prelude::{is_key_pressed, KeyCode};
+use xf::num::ivec2::i2;
 
 use crate::{
     io::controller::get_dir_h_down, 
     systems::collision::{collide, get_colliders_near}, 
-    consts::GRAVITY, game::game_data::GameData, entities::entity::Entity,
+    consts::GRAVITY, 
+    game::game_data::GameData, 
+    entities::{entity::Entity, spawn::spawn_entity, bullets::bullet::Bullet},
 };
 
-use super::{player::Player, state::State, consts::*, state_jump, state_dash};
+use super::{player::Player, state::State, consts::*, state_jump, state_dash, state_util::check_collide_enemy};
 
 
 pub fn start(player: &mut Player, g: &mut GameData) {
     player.state = State::Idle;
 }
 
-pub fn update(player: &mut Player, g: &GameData) {
+pub fn update(player: &mut Player, g: &mut GameData) {
     if let Some(dir) = get_dir_h_down() {
         player.dir = dir;
         player.state = State::Run;
@@ -44,4 +47,6 @@ pub fn update(player: &mut Player, g: &GameData) {
     if player.d.vel.y > GRAVITY.y * 4.0 {
         player.state = State::Jump;
     }
+
+    check_collide_enemy(player, g);
 }

@@ -1,5 +1,5 @@
 use crate::{
-    entities::player::{state_normal, state_jump, state_dash, state_wallslide}, game::game_data::GameData,
+    entities::player::{state_normal, state_jump, state_dash, state_wallslide, state_hurt}, game::game_data::GameData,
 };
 
 use super::{player::Player, anim::AnimKey};
@@ -12,6 +12,8 @@ pub enum State {
     Jump,
     Dash,
     WallSlide,
+    Hurt,
+    //Dead,
 }
 
 impl State {
@@ -30,6 +32,7 @@ impl State {
                 },
             Dash => AnimKey::Dash(dir),
             WallSlide => AnimKey::WallSlide(dir),
+            Hurt => AnimKey::Hurt(dir),
         }
     }
 
@@ -41,6 +44,7 @@ impl State {
             Jump => { state_jump::update(player, g); },
             Dash => { state_dash::update(player, g); },
             WallSlide => { state_wallslide::update(player, g); },
+            Hurt => { state_hurt::update(player, g); },
         }
     }
 }

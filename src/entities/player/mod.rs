@@ -8,3 +8,5 @@ mod state_dash;
 mod state_wallslide;
 pub mod update_data;
 pub mod entity;
+mod state_hurt;
+mod state_util;

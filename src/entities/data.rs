@@ -41,6 +41,10 @@ impl EntityData {
         self.pos = pos.as_fvec2(); self
     }
 
+    pub fn with_vel(mut self, vel: FVec2) -> Self {
+        self.vel = vel; self
+    }
+
     pub fn with_collider(mut self, collider: IRect) -> Self {
         self.collider = collider; self
     }

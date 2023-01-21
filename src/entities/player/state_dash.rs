@@ -11,7 +11,7 @@ use super::{
     state::State, 
     consts::*, 
     state_jump, 
-    state_normal
+    state_normal, state_util::check_collide_enemy
 };
 
 pub fn start(dir: DirH, player: &mut Player) {
@@ -42,4 +42,6 @@ pub fn update(player: &mut Player, g: &mut GameData) {
     if player.d.vel.y > 0.0 && deflection.y < 0 {
         player.d.vel.y = 0.0;
     }
+
+    check_collide_enemy(player, g);
 }
