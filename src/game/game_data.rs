@@ -6,7 +6,7 @@ use crate::{
     graphics::buffer::Buffer, 
     consts::SCREEN_SIZE, 
     level::{level::Level, load::load_level, level_info::LevelId}, 
-    entities::{player::player::Player, bosses::test_boss::test_boss::TestBoss}
+    entities::{player::player::Player, bosses::test_boss::test_boss::TestBoss, entity::Entity}
 };
 
 use super::draw_data::DrawData;

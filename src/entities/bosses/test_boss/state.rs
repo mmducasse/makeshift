@@ -23,7 +23,7 @@ impl State {
         match self {
             Idle => AnimKey::Idle(dir),
             Run => AnimKey::Run(dir),
-            Jump => if boss.vel.y < 0.0 {
+            Jump => if boss.d.vel.y < 0.0 {
                 AnimKey::JumpUp(dir)
             } else {
                 AnimKey::JumpDown(dir)

@@ -1,22 +1,20 @@
-use xf::num::{ivec2::IVec2, irect::IRect};
+use xf::num::{ivec2::IVec2, irect::{IRect, ir}};
 
 use crate::game::{game_data::GameData, draw_data::DrawData};
 
+use super::data::EntityData;
 
-static mut NEXT_ID: usize = 0;
-
-pub fn next_entity_id() -> usize {
-    unsafe {
-        let id = NEXT_ID;
-        NEXT_ID += 1;
-        id
-    }
-}
 
 pub trait Entity {
-    fn id(&self) -> usize;
-    fn bounds(&self) -> IRect;
-    fn collides(&self) -> bool { false }
+    fn data(&self) -> &EntityData;
+    fn data_mut(&mut self) -> &mut EntityData;
+
     fn update(&mut self, d: &mut GameData);
-    fn draw(&self, d: &DrawData);
+    fn draw(&self, d: &mut DrawData, org: IVec2);
+
+    fn bounds(&self) -> IRect {
+        self.data().collider.offset_by(
+            self.data().pos.as_ivec2()
+        )
+    }
 }

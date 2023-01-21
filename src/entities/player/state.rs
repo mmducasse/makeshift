@@ -2,7 +2,7 @@ use crate::{
     entities::player::{state_normal, state_jump, state_dash, state_wallslide}, game::game_data::GameData,
 };
 
-use super::{player::Player, anim::AnimKey, update_data::PlayerUpdateData};
+use super::{player::Player, anim::AnimKey};
 
 
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -23,7 +23,7 @@ impl State {
         match self {
             Idle => AnimKey::Idle(dir),
             Run => AnimKey::Run(dir),
-            Jump => if player.vel.y < 0.0 {
+            Jump => if player.d.vel.y < 0.0 {
                     AnimKey::JumpUp(dir)
                 } else {
                     AnimKey::JumpDown(dir)
@@ -33,14 +33,14 @@ impl State {
         }
     }
 
-    pub fn update(self, player: &mut Player, d: &mut PlayerUpdateData) {
+    pub fn update(self, player: &mut Player, g: &mut GameData) {
         use State::*;
 
         match self {
-            Idle | Run => { state_normal::update(player, d); },
-            Jump => { state_jump::update(player, d); },
-            Dash => { state_dash::update(player, d); },
-            WallSlide => { state_wallslide::update(player, d); },
+            Idle | Run => { state_normal::update(player, g); },
+            Jump => { state_jump::update(player, g); },
+            Dash => { state_dash::update(player, g); },
+            WallSlide => { state_wallslide::update(player, g); },
         }
     }
 }

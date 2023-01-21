@@ -2,7 +2,7 @@
 use macroquad::prelude::is_key_pressed;
 use xf::{data::dir_h::DirH, num::ivec2::{IVec2, i2}};
 
-use crate::{game::game_data::GameData, consts::{P16, P8}, level::tile::TileType};
+use crate::{game::game_data::GameData, consts::{P16, P8}, level::tile::TileType, entities::entity::Entity};
 
 use super::{test_boss::TestBoss, consts::RUN_SPEED_X};
 
@@ -28,11 +28,11 @@ impl Ai {
     pub fn update(boss: &mut TestBoss, g: &mut GameData) {
         match boss.ai.state {
             State::Idle => {
-                boss.vel.x = 0.0;
+                boss.d.vel.x = 0.0;
             },
             State::Running => {
                 let u = i2(boss.dir.unit().x, 1);
-                boss.vel.x = u.x as f32 * RUN_SPEED_X;
+                boss.d.vel.x = u.x as f32 * RUN_SPEED_X;
 
                 if test(boss, u * REVERSE_PROBE, g) {
                     boss.dir = boss.dir.opposite();
