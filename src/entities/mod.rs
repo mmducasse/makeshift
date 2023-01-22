@@ -9,4 +9,5 @@ pub mod spawn;
 pub mod player;
 pub mod bosses;
 pub mod bullets;
+pub mod spawner;
 pub mod dummy;

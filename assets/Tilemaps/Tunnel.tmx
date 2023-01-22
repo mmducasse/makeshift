@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.8" tiledversion="1.8.4" orientation="orthogonal" renderorder="right-down" width="14" height="12" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="4">
+ <editorsettings>
+  <export target="Tunnel.tmj" format="json"/>
+ </editorsettings>
+ <tileset firstgid="1" source="../Tilesets/TestTileset.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="14" height="12">
+  <data encoding="csv">
+5,22,22,22,22,22,22,22,22,22,22,22,22,6,
+13,7,7,7,7,7,7,7,7,7,7,7,7,11,
+13,7,7,7,7,7,7,7,7,7,7,7,7,11,
+13,7,4,7,7,7,7,7,7,7,7,4,7,11,
+13,7,14,7,7,7,7,7,7,7,7,14,7,11,
+13,7,14,7,7,7,7,7,7,7,7,14,7,11,
+13,7,14,7,7,7,7,7,7,7,7,14,7,11,
+13,7,24,7,7,7,7,7,7,7,7,24,7,11,
+13,7,7,7,7,7,7,7,7,7,7,7,7,11,
+13,7,7,7,7,7,7,7,7,7,7,7,7,11,
+15,2,2,2,2,2,2,2,2,2,2,2,2,16,
+12,12,12,12,12,12,12,12,12,12,12,12,12,12
+</data>
+ </layer>
+ <objectgroup id="3" name="Object Layer 1">
+  <object id="1" name="Player" x="64" y="144">
+   <point/>
+  </object>
+  <object id="2" name="Boss" x="160" y="144">
+   <point/>
+  </object>
+ </objectgroup>
+</map>

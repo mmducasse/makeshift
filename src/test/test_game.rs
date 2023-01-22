@@ -1,4 +1,4 @@
-use macroquad::window::next_frame;
+use macroquad::{window::next_frame, time::get_fps};
 use xf::num::{ivec2::{i2, IVec2}, irect::ir};
 
 use crate::{
@@ -20,8 +20,10 @@ pub async fn run() {
     let mut g = GameData::new();
     let mut d = DrawData::new();
 
-    spawn_entity(Player::new(i2(32, 32)), &mut g);
-    spawn_entity(TestBoss::new(i2(128, 32)), &mut g);
+    // spawn_entity(Player::new(i2(32, 32)), &mut g);
+    // spawn_entity(TestBoss::new(i2(128, 32)), &mut g);
+
+    let mut i = 0;
 
     loop {
 
@@ -31,6 +33,10 @@ pub async fn run() {
         // Debug
 
         //println!("count = {}", g.entities.debug_count());
+        if i % 10 == 0 {
+            println!("fps = {}", get_fps());
+        }
+        i += 1;
 
         // End
 

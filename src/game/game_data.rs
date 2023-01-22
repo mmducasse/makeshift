@@ -18,9 +18,11 @@ pub struct GameData {
 
 impl GameData {
     pub fn new() -> Self {
+        let (level, entities) = load_level(LevelId::Tunnel).unwrap();
+
         Self {
-            entities: Entities::new(),
-            level: load_level(LevelId::Test).unwrap(),
+            entities,
+            level,
         }
     }
 

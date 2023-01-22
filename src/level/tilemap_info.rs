@@ -3,6 +3,7 @@ use super::tileset_info::{TilesetInfo, TilesetId};
 #[derive(Clone, Copy, PartialEq, Eq)]
 pub enum TilemapId {
     Test,
+    Tunnel,
 }
 
 impl TilemapId {
@@ -11,6 +12,7 @@ impl TilemapId {
 
         match self {
             Test => TEST_TILEMAP,
+            Tunnel => TUNNEL_TILEMAP,
         }
     }
 }
@@ -22,5 +24,10 @@ pub struct TilemapInfo {
 
 const TEST_TILEMAP: TilemapInfo = TilemapInfo {
     tilemap: include_bytes!("../../assets/Tilemaps/TestMap.tmj"),
+    tileset_info: &TilesetId::Test.info(),
+};
+
+const TUNNEL_TILEMAP: TilemapInfo = TilemapInfo {
+    tilemap: include_bytes!("../../assets/Tilemaps/Tunnel.tmj"),
     tileset_info: &TilesetId::Test.info(),
 };

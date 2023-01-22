@@ -1,15 +1,15 @@
 use std::{rc::Rc, str::FromStr};
 
 use macroquad::texture::Image;
-use xf::map::{tiled_json::{tileset::{JsonTileset, JsonTile}, tilemap::JsonTilemap}, tileset::Tileset, tilemap::Tilemap};
+use xf::{map::{tiled_json::{tileset::{JsonTileset, JsonTile}, tilemap::{JsonTilemap, Object, Layer}}, tileset::Tileset, tilemap::Tilemap}, num::ivec2::i2};
 
-use crate::graphics::buffer::convert_mq_image_to_xf_texture;
+use crate::{graphics::buffer::convert_mq_image_to_xf_texture, entities::{player::player::Player, entity::Entity, entities::Entities, bosses::test_boss::test_boss::TestBoss}};
 
 use super::{level_info::LevelId, tilemap_info, level::Level, tile::{Tile, TileType}};
 
 
 
-pub fn load_level(level_id: LevelId) -> Result<Level, String> {
+pub fn load_level(level_id: LevelId) -> Result<(Level, Entities), String> {
     let level_info = level_id.info();
     let tilemap_info = level_info.tilemap_info;
     let tileset_info = tilemap_info.tileset_info;
@@ -38,11 +38,10 @@ pub fn load_level(level_id: LevelId) -> Result<Level, String> {
     })?;
     let tilemap = tilemap_layers.into_iter().nth(0).unwrap();
 
+    let entities = load_entities(&tilemap_json);
+
     // Create level.
-    Ok(Level { 
-        tilemap,
-        //entities: load_entities(&tilemap_json),
-    })
+    Ok((Level { tilemap }, entities))
 }
 
 fn load_tile(json_tile: &JsonTile) -> Result<Tile, String> {
@@ -68,38 +67,26 @@ fn get_tile_property<'a>(json_tile: &'a JsonTile, name: &str) -> Option<&'a str>
     None
 }
 
-// fn load_entities(json: &JsonTilemap) -> Entities {
-//     let mut entities = Entities::new();
+fn load_entities(json: &JsonTilemap) -> Entities {
+    let mut entities = Entities::new();
 
-//     for layer in &json.layers {
-//         if let Layer::Objectgroup { objects, .. } = layer {
-//             for object in objects {
-//                 let entity = load_entity(&object);
-//                 entities.add(entity);
-//             }
-//         }
-//     }
+    for layer in &json.layers {
+        if let Layer::Objectgroup { objects, .. } = layer {
+            for object in objects {
+                let entity = load_entity(&object);
+                entities.add(entity);
+            }
+        }
+    }
 
-//     entities
-// }
+    entities
+}
 
-// fn load_entity(object: &Object) -> Box<dyn Entity> {
-//     let pos = i2(object.x, object.y);
-//     match object.name.as_str() {
-//         "Item" => Box::new(Item::new(
-//             pos, 
-//             ItemType::from_str(&object.type_).unwrap(),
-//         )),
-//         "Goal" => Box::new(Goal::new(pos)),
-//         "Player" => Box::new(PlayerSpawner::new(pos)),
-//         "Door" => Box::new(Door::new(pos)),
-//         "Sign" => Box::new(Sign::new(
-//             pos,
-//             object.type_.to_owned(),
-//         )),
-//         "GateR" => Box::new(Gate::new(pos, ItemType::KeyRed)),
-//         "GateG" => Box::new(Gate::new(pos, ItemType::KeyGreen)),
-//         "GateB" => Box::new(Gate::new(pos, ItemType::KeyBlue)),
-//         _ => panic!("Unexpected object name: {}", object.name),
-//     }
-// }
+fn load_entity(object: &Object) -> Box<dyn Entity> {
+    let pos = i2(object.x, object.y);
+    match object.name.as_str() {
+        "Player" => Box::new(Player::new(pos)),
+        "Boss" => Box::new(TestBoss::new(pos)),
+        _ => panic!("Unexpected object name: {}", object.name),
+    }
+}
