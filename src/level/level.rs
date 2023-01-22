@@ -1,6 +1,6 @@
 use xf::{map::tilemap::Tilemap, num::{ivec2::{IVec2, i2}, irect::{IRect, ir}}, gl::bitmap::Bitmap};
 
-use crate::{consts::P16, game::draw_data::DrawData};
+use crate::{consts::P16, game::{draw_data::DrawData, game_data::GameData}, other::background::Background};
 
 use super::tile::{Tile, TileType};
 
@@ -8,10 +8,23 @@ use super::tile::{Tile, TileType};
 
 pub struct Level {
     pub tilemap: Tilemap<Tile>,
+    pub background: Background,
 }
 
 impl Level {
+    pub fn new(tilemap: Tilemap<Tile>) -> Self {
+        Self {
+            tilemap,
+            background: Background::new(),
+        }
+    }
+
+    pub fn update(&mut self) {
+        self.background.update();
+    }
+
     pub fn draw(&self, view: IRect, d: &mut DrawData) {
+        self.background.draw(d, view.pos);
 
         let view_p16 = ir(view.pos / P16, view.size / P16).expand(1); // todo: expand by 1
 
@@ -42,10 +55,10 @@ impl Level {
     pub fn tile_type_at(&self, pos: IVec2) -> TileType {
         let pos_p16 = pos / P16;
 
-        if !self.bounds().contains(pos) { return TileType::Wall }
+        if !self.bounds().contains(pos) { return TileType::OutOfBounds }
 
         self.tilemap.get(pos_p16)
                     .map(|t| t.type_)
-                    .unwrap_or(TileType::Wall)
+                    .unwrap_or(TileType::Empty)
     }
 }

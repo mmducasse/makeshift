@@ -19,6 +19,7 @@ mod level;
 mod entities;
 mod systems;
 mod game;
+mod other;
 mod test;
 
 #[macroquad::main("Makeshift")]

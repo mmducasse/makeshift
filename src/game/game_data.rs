@@ -27,6 +27,7 @@ impl GameData {
     }
 
     pub fn update(&mut self) {
+        self.level.update();
         Entities::update(self);
     }
 

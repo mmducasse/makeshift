@@ -107,5 +107,5 @@ pub fn get_colliders_near(center: IVec2, g: &GameData) -> Vec<IRect> {
 pub fn is_wall_at(bounds: IRect, offset: IVec2, g: &GameData) -> bool {
     let pos = bounds.center() + offset;
     let tile_type = g.level.tile_type_at(pos);
-    tile_type != TileType::Empty
+    tile_type.is_impassable()
 }

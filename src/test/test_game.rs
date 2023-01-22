@@ -35,10 +35,10 @@ pub async fn run() {
         // Debug
 
         //println!("count = {}", g.entities.debug_count());
-        if i % 10 == 0 {
-            println!("fps = {}", get_fps());
-        }
-        i += 1;
+        // if i % 10 == 0 {
+        //     println!("fps = {}", get_fps());
+        // }
+        // i += 1;
 
         if is_key_down(KeyCode::Escape) {
             exit(0);

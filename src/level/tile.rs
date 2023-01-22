@@ -16,6 +16,7 @@ impl Default for Tile {
 
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
 pub enum TileType {
+    OutOfBounds,
     Empty,
     Wall,
     Breakable,
@@ -25,7 +26,7 @@ impl TileType {
     pub fn is_impassable(self) -> bool {
         use TileType::*;
 
-        matches!(self, Wall | Breakable)
+        matches!(self, Wall | Breakable | OutOfBounds)
     }
 }
 

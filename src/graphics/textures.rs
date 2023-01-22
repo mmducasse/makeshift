@@ -9,6 +9,8 @@ pub enum TextureId {
     Player,
     TestBoss,
     Bullets,
+    CloudLayer1,
+    CloudLayer2,
 }
 
 const COUNT: usize = 7;
@@ -20,6 +22,8 @@ const fn get_bytes(id: TextureId) -> &'static [u8] {
         Player => include_bytes!("../../assets/Sprites/Player.png"),
         TestBoss => include_bytes!("../../assets/Sprites/TestBoss.png"),
         Bullets => include_bytes!("../../assets/Sprites/Bullets.png"),
+        CloudLayer1 => include_bytes!("../../assets/Sprites/CloudLayer1.png"),
+        CloudLayer2 => include_bytes!("../../assets/Sprites/CloudLayer2.png"),
     }
 }
 

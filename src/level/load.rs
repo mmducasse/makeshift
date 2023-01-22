@@ -41,7 +41,7 @@ pub fn load_level(level_id: LevelId) -> Result<(Level, Entities), String> {
     let entities = load_entities(&tilemap_json);
 
     // Create level.
-    Ok((Level { tilemap }, entities))
+    Ok((Level::new(tilemap), entities))
 }
 
 fn load_tile(json_tile: &JsonTile) -> Result<Tile, String> {
