@@ -1,8 +1,8 @@
 
 use macroquad::prelude::is_key_pressed;
-use xf::{data::dir_h::DirH, num::ivec2::{IVec2, i2}};
+use xf::{data::dir_h::DirH, num::{ivec2::{IVec2, i2}, irect::IRect}};
 
-use crate::{game::game_data::GameData, consts::{P16, P8}, level::tile::TileType, entities::entity::Entity};
+use crate::{game::game_data::GameData, consts::{P16, P8}, level::tile::TileType, entities::entity::Entity, systems::collision::is_wall_at};
 
 use super::{test_boss::TestBoss, consts::RUN_SPEED_X};
 
@@ -26,6 +26,10 @@ impl Ai {
     }
 
     pub fn update(boss: &mut TestBoss, g: &mut GameData) {
+        if boss.state == super::state::State::Hurt {
+            return;
+        }
+
         match boss.ai.state {
             State::Idle => {
                 boss.d.vel.x = 0.0;
@@ -34,9 +38,9 @@ impl Ai {
                 let u = i2(boss.dir.unit().x, 1);
                 boss.d.vel.x = u.x as f32 * RUN_SPEED_X;
 
-                if test(boss, u * REVERSE_PROBE, g) {
+                if is_wall_at(boss.bounds(), u * REVERSE_PROBE, g) {
                     boss.dir = boss.dir.opposite();
-                } else if test(boss, u * JUMP_PROBE, g) {
+                } else if is_wall_at(boss.bounds(), u * JUMP_PROBE, g) {
                     boss.jump();
                 }
             },
@@ -44,12 +48,6 @@ impl Ai {
 
         check_for_debug_inputs(boss);
     }
-}
-
-fn test(boss: &TestBoss, offset: IVec2, g: &GameData) -> bool {
-    let pos = boss.bounds().center() + offset;
-    let tile_type = g.level.tile_type_at(pos);
-    tile_type != TileType::Empty
 }
 
 fn check_for_debug_inputs(boss: &mut TestBoss) {

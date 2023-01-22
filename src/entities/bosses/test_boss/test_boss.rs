@@ -5,7 +5,7 @@ use xf::{
         irect::{IRect, ir, rect}
     }, 
     data::dir_h::DirH, 
-    gl::anim::Animator
+    gl::anim::Animator, time::countdown::Countdown
 };
 
 use crate::{
@@ -27,6 +27,7 @@ pub struct TestBoss {
     pub(super) state: State,
     pub(super) ai: Ai,
     pub animator: Animator<AnimKey>,
+    pub(super) grace_timer: Countdown,
 }
 
 const DAMAGE: i32 = 1;
@@ -42,6 +43,7 @@ impl TestBoss {
             state: State::Idle,
             ai: Ai::new(),
             animator: animator(),
+            grace_timer: Countdown::new(0),
         }
     }
 

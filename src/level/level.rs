@@ -13,7 +13,7 @@ pub struct Level {
 impl Level {
     pub fn draw(&self, view: IRect, d: &mut DrawData) {
 
-        let view_p16 = ir(view.pos / P16, view.size / P16).expand(0); // todo: expand by 1
+        let view_p16 = ir(view.pos / P16, view.size / P16).expand(1); // todo: expand by 1
 
         for tile_pos_p16 in view_p16.iter() {
             if let Some(Some(src)) = self.tilemap.tile_srcs.get(tile_pos_p16) {

@@ -1,6 +1,6 @@
 use xf::{gl::anim::{Animator, Animation}, data::dir_h::DirH};
 
-use crate::{consts::P16, row_2_l};
+use crate::{consts::P16, row_2_l, row_2};
 
 
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -9,6 +9,7 @@ pub enum AnimKey {
     Run(DirH),
     JumpUp(DirH),
     JumpDown(DirH),
+    Hurt(DirH),
 }
 
 pub fn animator() -> Animator<AnimKey> {
@@ -30,5 +31,6 @@ fn map_fn(key: AnimKey) -> &'static dyn Animation {
         Run(dir) => row_2_l!(dir, 4, DUR, i2(0, 2)),
         JumpUp(dir) => row_2_l!(dir, 1, DUR, i2(2, 2)),
         JumpDown(dir) => row_2_l!(dir, 1, DUR, i2(0, 2)),
+        Hurt(dir) => row_2!(dir, 1, 16, i2(0, 14)),
     }
 }

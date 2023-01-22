@@ -9,7 +9,7 @@ use crate::{
 use super::{
     state::State, 
     consts::{JUMP_RELEASE_VEL_Y, JUMP_VEL_Y, WALLSLIDE_VEL_Y, RUN_SPEED_X, MAX_FALL_VEL_Y},
-    state_normal, test_boss::TestBoss
+    state_normal, test_boss::TestBoss, state_util::check_collide_enemy
 };
 
 pub fn update(boss: &mut TestBoss, g: &mut GameData) {
@@ -28,4 +28,6 @@ pub fn update(boss: &mut TestBoss, g: &mut GameData) {
     if boss.d.vel.y > GRAVITY.y * 4.0 {
         boss.state = State::Jump;
     }
+
+    check_collide_enemy(boss, g);
 }

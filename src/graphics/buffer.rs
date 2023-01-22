@@ -34,6 +34,8 @@ impl Buffer {
         let texture2d = Texture2D::from_image(self.image());
         texture2d.set_filter(FilterMode::Nearest);
 
+        clear_background(macroquad::prelude::YELLOW); // todo delete
+
         draw_texture_ex(texture2d, 0.0, 0.0, WHITE, DrawTextureParams {
             dest_size: Some(Vec2::new(screen_width(), screen_height())),
             source: None,
@@ -44,8 +46,9 @@ impl Buffer {
         });
 
         // Clear the buffer.
-        let rect = ir(IVec2::ZERO, SCREEN_SIZE);
-        self.draw_rect(rect, Color::BLACK);
+        // let rect = ir(IVec2::ZERO, SCREEN_SIZE);
+        // self.draw_rect(rect, Color::BLACK);
+
     }
 }
 
@@ -65,17 +68,15 @@ impl Bitmap for Buffer {
         convert_mq_color_to_xf_color(color)
     }
 
-    fn set_pixel(&mut self, pos: IVec2, color: Color) {
+    unsafe fn set_pixel(&mut self, pos: IVec2, color: Color) {
         if color.a < 120 { return; } //todo: additive color blending.
         
-        if IRect::of_size(self.size()).contains(pos) {
-            let color = macroquad::color::Color::from_rgba(
-                color.r, color.g, color.b, color.a);
-        
-            let x = pos.x as u32;
-            let y = pos.y as u32;
-            self.0.set_pixel(x, y, color);
-        }
+        let color = macroquad::color::Color::from_rgba(
+            color.r, color.g, color.b, color.a);
+    
+        let x = pos.x as u32;
+        let y = pos.y as u32;
+        self.0.set_pixel(x, y, color);
     }
 }
 

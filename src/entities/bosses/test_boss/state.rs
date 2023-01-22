@@ -1,6 +1,6 @@
 use crate::{
     game::game_data::GameData, 
-    entities::bosses::test_boss::{state_normal, state_jump}
+    entities::bosses::test_boss::{state_normal, state_jump, state_hurt}
 };
 
 use super::{test_boss::TestBoss, anim::AnimKey};
@@ -12,6 +12,7 @@ pub enum State {
     Idle,
     Run,
     Jump,
+    Hurt,
 }
 
 impl State {
@@ -28,6 +29,7 @@ impl State {
             } else {
                 AnimKey::JumpDown(dir)
             },
+            Hurt => AnimKey::Hurt(dir),
         }
     }
 
@@ -37,6 +39,7 @@ impl State {
         match self {
             Idle | Run => { state_normal::update(boss, g); },
             Jump => { state_jump::update(boss, g); },
+            Hurt => { state_hurt::update(boss, g); },
         }
     }
 }

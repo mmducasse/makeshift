@@ -1,6 +1,6 @@
 use xf::num::{irect::{IRect, rect, ir}, ivec2::IVec2};
 
-use crate::{game::game_data::GameData, consts::P16};
+use crate::{game::game_data::GameData, consts::P16, level::tile::TileType};
 
 /// Returns the deflection vector that results from colliding the
 /// box collider with the tilemap.
@@ -102,4 +102,10 @@ pub fn get_colliders_near(center: IVec2, g: &GameData) -> Vec<IRect> {
         }
     }
     vec
+}
+
+pub fn is_wall_at(bounds: IRect, offset: IVec2, g: &GameData) -> bool {
+    let pos = bounds.center() + offset;
+    let tile_type = g.level.tile_type_at(pos);
+    tile_type != TileType::Empty
 }

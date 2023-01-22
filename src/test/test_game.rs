@@ -1,4 +1,6 @@
-use macroquad::{window::next_frame, time::get_fps};
+use std::process::exit;
+
+use macroquad::{window::next_frame, time::get_fps, prelude::{is_key_down, KeyCode}};
 use xf::num::{ivec2::{i2, IVec2}, irect::ir};
 
 use crate::{
@@ -37,6 +39,10 @@ pub async fn run() {
             println!("fps = {}", get_fps());
         }
         i += 1;
+
+        if is_key_down(KeyCode::Escape) {
+            exit(0);
+        }
 
         // End
 

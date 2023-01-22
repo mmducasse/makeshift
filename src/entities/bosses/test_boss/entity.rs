@@ -17,6 +17,7 @@ impl Entity for TestBoss {
 
     fn update(&mut self, g: &mut GameData) {
         Ai::update(self, g);
+        self.grace_timer.decrement();
         self.state.update(self, g);
 
         self.animator.set_key(self.state.to_anim_key(self), false);
@@ -24,7 +25,9 @@ impl Entity for TestBoss {
     }
 
     fn draw(&self, d: &mut DrawData, org: IVec2) {
-        let texture = d.textures().get(TextureId::TestBoss);
-        self.animator.draw(&texture, self.d.pos.as_ivec2() - org, d.buffer());
+        if self.grace_timer.remaining() % 2 == 0 {
+            let texture = d.textures().get(TextureId::TestBoss);
+            self.animator.draw(&texture, self.d.pos.as_ivec2() - org, d.buffer());
+        }
     }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.8" tiledversion="1.8.4" name="TestTileset" tilewidth="16" tileheight="16" tilecount="100" columns="10">
- <image source="TestTileset.png" width="160" height="160"/>
+<tileset version="1.8" tiledversion="1.8.4" name="TestTileset" tilewidth="16" tileheight="16" tilecount="200" columns="10">
+ <image source="TestTileset.png" width="160" height="320"/>
  <tile id="0" type="Wall"/>
  <tile id="1" type="Wall"/>
  <tile id="2" type="Wall"/>
@@ -26,4 +26,75 @@
  <tile id="42" type="Wall"/>
  <tile id="50" type="Wall"/>
  <tile id="51" type="Wall"/>
+ <tile id="70" type="Wall"/>
+ <tile id="71" type="Wall"/>
+ <tile id="72" type="Wall"/>
+ <tile id="73" type="Wall"/>
+ <tile id="74" type="Wall"/>
+ <tile id="75" type="Wall"/>
+ <tile id="76" type="Wall"/>
+ <tile id="77" type="Wall"/>
+ <tile id="78" type="Wall"/>
+ <tile id="79" type="Wall"/>
+ <tile id="80" type="Wall"/>
+ <tile id="81" type="Wall"/>
+ <tile id="82" type="Wall"/>
+ <tile id="83" type="Wall"/>
+ <tile id="84" type="Wall"/>
+ <tile id="85" type="Wall"/>
+ <tile id="86" type="Wall"/>
+ <tile id="87" type="Wall"/>
+ <tile id="88" type="Wall"/>
+ <tile id="89" type="Wall"/>
+ <tile id="90" type="Wall"/>
+ <tile id="91" type="Wall"/>
+ <tile id="92" type="Wall"/>
+ <tile id="93" type="Wall"/>
+ <tile id="94" type="Wall"/>
+ <tile id="95" type="Wall"/>
+ <tile id="96" type="Wall"/>
+ <tile id="97" type="Wall"/>
+ <tile id="98" type="Wall"/>
+ <tile id="99" type="Wall"/>
+ <tile id="100" type="Wall"/>
+ <tile id="101" type="Wall"/>
+ <tile id="102" type="Wall"/>
+ <tile id="103" type="Wall"/>
+ <tile id="104" type="Wall"/>
+ <tile id="105" type="Wall"/>
+ <tile id="106" type="Wall"/>
+ <tile id="107" type="Wall"/>
+ <tile id="108" type="Wall"/>
+ <tile id="109" type="Wall"/>
+ <tile id="110" type="Wall"/>
+ <tile id="112" type="Wall"/>
+ <tile id="113" type="Wall"/>
+ <tile id="114" type="Wall"/>
+ <tile id="115" type="Wall"/>
+ <tile id="116" type="Wall"/>
+ <tile id="117" type="Wall"/>
+ <tile id="119" type="Wall"/>
+ <tile id="122" type="Wall"/>
+ <tile id="123" type="Wall"/>
+ <tile id="124" type="Wall"/>
+ <tile id="125" type="Wall"/>
+ <tile id="126" type="Wall"/>
+ <tile id="127" type="Wall"/>
+ <tile id="128" type="Wall"/>
+ <tile id="129" type="Wall"/>
+ <tile id="131" type="Wall"/>
+ <tile id="133" type="Wall"/>
+ <tile id="134" type="Wall"/>
+ <tile id="135" type="Wall"/>
+ <tile id="136" type="Wall"/>
+ <tile id="137" type="Wall"/>
+ <tile id="138" type="Wall"/>
+ <tile id="139" type="Wall"/>
+ <tile id="143" type="Wall"/>
+ <tile id="144" type="Wall"/>
+ <tile id="145" type="Wall"/>
+ <tile id="146" type="Wall"/>
+ <tile id="147" type="Wall"/>
+ <tile id="148" type="Wall"/>
+ <tile id="149" type="Wall"/>
 </tileset>

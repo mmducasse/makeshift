@@ -7,9 +7,9 @@ use crate::{
     game::game_data::GameData, entities::entity::Entity,
 };
 
-use super::{test_boss::TestBoss, state::State};
+use super::{test_boss::TestBoss, state::State, state_util::check_collide_enemy};
 
-pub fn update(boss: &mut TestBoss, g: &GameData) {
+pub fn update(boss: &mut TestBoss, g: &mut GameData) {
     boss.state = if boss.d.vel.x == 0.0 {
         State::Idle
     } else {
@@ -31,4 +31,6 @@ pub fn update(boss: &mut TestBoss, g: &GameData) {
     if boss.d.vel.y > GRAVITY.y * 4.0 {
         boss.state = State::Jump;
     }
+
+    check_collide_enemy(boss, g);
 }
