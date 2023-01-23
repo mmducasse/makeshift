@@ -2,20 +2,20 @@ use xf::num::ivec2::IVec2;
 
 use crate::{
     game::game_data::GameData, 
-    entities::bosses::test_boss::{state_normal, state_jump, state_hurt, state_fly}
+    entities::bosses::test_boss::{state_normal, state_jump, state_hurt, state_fly, state_dash}
 };
 
 use super::{test_boss::TestBoss, anim::AnimKey};
 
 
 
-#[derive(Clone, Copy, PartialEq, Eq)]
+#[derive(Clone, Copy, PartialEq)]
 pub enum State {
     Idle,
-    Run,
-    Dash,
+    RunTo(i32),
+    DashTo(i32),
     Jump,
-    FlyTo(IVec2),
+    FlyTo { target: IVec2, speed: f32},
     Float,
     Hurt,
 }
@@ -28,9 +28,9 @@ impl State {
 
         match self {
             Idle => AnimKey::Idle(dir),
-            Run => AnimKey::Run(dir),
-            Dash => AnimKey::Dash(dir),
-            Jump | FlyTo(_) | Float => if boss.d.vel.y < 0.0 {
+            RunTo(_) => AnimKey::Run(dir),
+            DashTo(_) => AnimKey::Dash(dir),
+            Jump | FlyTo { .. }  | Float => if boss.d.vel.y < 0.0 {
                 AnimKey::JumpUp(dir)
             } else {
                 AnimKey::JumpDown(dir)
@@ -43,9 +43,10 @@ impl State {
         use State::*;
 
         match self {
-            Idle | Run | Dash => { state_normal::update(boss, g); },
+            Idle | RunTo(_) => { state_normal::update(boss, g); },
+            DashTo(x) => { state_dash::update(boss, x, g); },
             Jump => { state_jump::update(boss, g); },
-            FlyTo(_) | Float => { state_fly::update(boss, g); },
+            FlyTo { .. } | Float => { state_fly::update(boss, g); },
             Hurt => { state_hurt::update(boss, g); },
         }
     }

@@ -7,21 +7,26 @@ use crate::{
     game::game_data::GameData, entities::entity::Entity,
 };
 
-use super::{test_boss::TestBoss, state::State, state_util::check_collide_enemy, consts::{RUN_SPEED_X, DASH_SPEED_X, FLY_SPEED}};
+use super::{test_boss::TestBoss, state::State, state_util::check_collide_enemy, consts::{RUN_SPEED_X, DASH_SPEED_X, FLY_SPEED_SLOW}};
 
 pub fn update(boss: &mut TestBoss, g: &mut GameData) {
-    if let State::FlyTo(target) = boss.state {
-        let delta = target.as_fvec2() - boss.bounds().center().as_fvec2();
+    if let State::FlyTo { target, speed } = boss.state {
+        let delta = target.as_fvec2() - boss.d.pos;
         boss.dir = if delta.x < 0.0 { DirH::L } else { DirH::R };
-        boss.d.vel = delta.normalize() * FLY_SPEED;
-        boss.d.pos += boss.d.vel;
+
+        if delta.magnitude() < speed {
+            boss.d.pos = target.as_fvec2();
+        } else {
+            boss.d.vel = delta.normalize() * speed;
+            boss.d.pos += boss.d.vel;
+        }
     } else {
         boss.d.vel = FVec2::ZERO;
     }
 
-    let colliders = get_colliders_near(boss.bounds().center(), g);
-    let deflection = collide(boss.bounds(), colliders, Some(g.level.bounds()));
-    boss.d.pos += deflection.as_fvec2();
+    // let colliders = get_colliders_near(boss.bounds().center(), g);
+    // let deflection = collide(boss.bounds(), colliders, Some(g.level.bounds()));
+    // boss.d.pos += deflection.as_fvec2();
 
     check_collide_enemy(boss, g);
 }

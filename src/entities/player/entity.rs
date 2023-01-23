@@ -3,7 +3,7 @@ use xf::num::{ivec2::{IVec2}, fvec2::f2};
 
 use crate::{entities::{entity::Entity, data::EntityData, spawn::spawn_entity, bullets::bullet::Bullet}, game::{game_data::GameData, draw_data::DrawData}, graphics::textures::TextureId};
 
-use super::player::Player;
+use super::{player::Player, consts::BULLET_SPEED};
 
 
 
@@ -18,7 +18,7 @@ impl Entity for Player {
 
         // todo delete
         if is_key_pressed(KeyCode::X) && self.grace_timer.is_done() {
-            let vel_x = self.face_dir().unit().x as f32 * 4.0;
+            let vel_x = self.face_dir().unit().x as f32 * BULLET_SPEED;
             spawn_entity(Bullet::new(true, self.bounds().center(), f2(vel_x, 0.)), g);
         }
 
