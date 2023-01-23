@@ -18,7 +18,7 @@ impl Entity for Player {
 
         // todo delete
         if is_key_pressed(KeyCode::X) {
-            let vel_x = self.dir.unit().x as f32 * 4.0;
+            let vel_x = self.face_dir().unit().x as f32 * 4.0;
             spawn_entity(Bullet::new(true, self.bounds().center(), f2(vel_x, 0.)), g);
         }
 

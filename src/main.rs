@@ -15,6 +15,7 @@ mod consts;
 mod common;
 mod graphics;
 mod io;
+mod ui;
 mod level;
 mod entities;
 mod systems;

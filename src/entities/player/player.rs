@@ -40,4 +40,12 @@ impl Player {
             animator: animator(),
         }
     }
+
+    pub fn face_dir(&self) -> DirH {
+        if matches!(self.state, State::WallSlide) {
+            self.dir.opposite()
+        } else {
+            self.dir
+        }
+    }
 }

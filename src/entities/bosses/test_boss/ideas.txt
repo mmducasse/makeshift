@@ -1,0 +1,7 @@
+
+
+PHASES:
+  - Idle: Stands still for a short duration
+  - Bullet Hell: Stands at 1/3 or 2/3 x and fires lots of bullets
+  - Tornado: Paces back-and-forth in bottom row while melee spinning
+  - Levitate: Hovers in the middle while bullets fill bottom and top row

@@ -4,7 +4,7 @@ use xf::num::{ivec2::{i2, IVec2}, irect::ir};
 
 use crate::{
     graphics::buffer::Buffer, 
-    consts::SCREEN_SIZE, 
+    consts::*, 
     level::{level::Level, load::load_level, level_info::LevelId}, 
     entities::{player::player::Player, bosses::test_boss::test_boss::TestBoss, entity::Entity, entities::Entities}
 };
@@ -32,7 +32,7 @@ impl GameData {
     }
 
     pub fn draw(&self, d: &mut DrawData, org: IVec2) {
-        self.level.draw(ir(org, SCREEN_SIZE), d);
+        self.level.draw(ir(org, VIEW_SIZE), d);
         self.entities.draw(d, org);
     }
 }

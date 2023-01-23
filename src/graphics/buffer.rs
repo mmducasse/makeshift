@@ -9,8 +9,6 @@ use xf::{
     num::{ivec2::{i2, IVec2}, irect::{IRect, ir}}
 };
 
-use crate::consts::SCREEN_SIZE;
-
 const DEFAULT: Color = Color::WHITE;
 
 /// The back buffer for drawing.
