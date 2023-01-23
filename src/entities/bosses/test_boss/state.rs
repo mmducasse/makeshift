@@ -11,6 +11,7 @@ use super::{test_boss::TestBoss, anim::AnimKey};
 pub enum State {
     Idle,
     Run,
+    Dash,
     Jump,
     Hurt,
 }
@@ -24,6 +25,7 @@ impl State {
         match self {
             Idle => AnimKey::Idle(dir),
             Run => AnimKey::Run(dir),
+            Dash => AnimKey::Dash(dir),
             Jump => if boss.d.vel.y < 0.0 {
                 AnimKey::JumpUp(dir)
             } else {
@@ -37,7 +39,7 @@ impl State {
         use State::*;
 
         match self {
-            Idle | Run => { state_normal::update(boss, g); },
+            Idle | Run | Dash => { state_normal::update(boss, g); },
             Jump => { state_jump::update(boss, g); },
             Hurt => { state_hurt::update(boss, g); },
         }

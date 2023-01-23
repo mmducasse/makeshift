@@ -1,6 +1,6 @@
 //#![forbid(unsafe_code)]
 #![allow(dead_code)]
-//#![allow(unused_imports)]
+#![allow(unused_imports)]
 //#![allow(non_camel_case_types)]
 #![allow(unused_variables)]
 //#![allow(unused_mut)]

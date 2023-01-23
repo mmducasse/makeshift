@@ -7,12 +7,13 @@ use xf::{
     gl::anim::Animator, time::countdown::Countdown
 };
 
-use crate::entities::{data::EntityData, type_::EntityType};
+use crate::entities::{data::EntityData, type_::EntityType, entity::Entity};
 
 use super::{
     state::State, 
     anim::{animator, AnimKey}, 
-    ai::Ai, consts::JUMP_VEL_Y
+    consts::JUMP_VEL_Y, 
+    ai::Ai, 
 };
 
 
@@ -35,12 +36,20 @@ impl TestBoss {
             d: EntityData::new(EntityType::Enemy(DAMAGE))
                 .at(pos)
                 .with_collider(COLLIDER),
-            dir: DirH::R,
+            dir: DirH::L,
             state: State::Idle,
             ai: Ai::new(),
             animator: animator(),
             grace_timer: Countdown::new(0),
         }
+    }
+
+    pub fn face_toward(&mut self, x: i32) {
+        self.dir = if x < self.bounds().center().x {
+            DirH::L
+        } else {
+            DirH::R
+        };
     }
 
     pub fn jump(&mut self) {

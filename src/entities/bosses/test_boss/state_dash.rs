@@ -8,12 +8,7 @@ use crate::{
 use super::{test_boss::TestBoss, state::State, state_util::check_collide_enemy, consts::{RUN_SPEED_X, DASH_SPEED_X}};
 
 pub fn update(boss: &mut TestBoss, g: &mut GameData) {
-    let speed = match boss.state {
-        State::Run => RUN_SPEED_X,
-        State::Dash => DASH_SPEED_X,
-        _ => 0.0,
-    };
-    boss.d.vel.x = speed * boss.dir.unit().x as f32;
+    
 
     boss.d.vel += GRAVITY;
     boss.d.pos += boss.d.vel;

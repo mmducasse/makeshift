@@ -16,7 +16,7 @@ pub async fn run() -> GameResult {
     let mut g = GameData::new();
     let mut d = DrawData::new();
 
-    let mut i = 0;
+    //let mut i = 0;
 
     loop {
 
@@ -32,10 +32,10 @@ pub async fn run() -> GameResult {
 
         // Debug //////////////////////////////////////////
 
-        if i % 10 == 0 {
-            println!("fps = {}", get_fps());
-        }
-        i += 1;
+        // if i % 10 == 0 {
+        //     println!("fps = {}", get_fps());
+        // }
+        // i += 1;
 
         if is_key_down(KeyCode::Escape) {
             exit(0);

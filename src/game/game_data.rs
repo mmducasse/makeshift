@@ -14,6 +14,7 @@ pub struct GameData {
     pub level: Level,
     pub player_health: Limit<i32>,
     pub boss_health: Limit<i32>,
+    frame_num: usize,
 }
 
 impl GameData {
@@ -25,12 +26,17 @@ impl GameData {
             level,
             player_health: Limit::new_max(0, PLAYER_HEALTH_MAX),
             boss_health: Limit::new_max(0, BOSS_HEALTH_MAX),
+            frame_num: 0,
         }
     }
+
+    pub fn frame_num(&self) -> usize { self.frame_num }
 
     pub fn update(&mut self) {
         self.level.update();
         Entities::update(self);
+
+        self.frame_num = (self.frame_num + 1) % 0xFFFF;
     }
 
     pub fn draw(&self, d: &mut DrawData, org: IVec2) {

@@ -9,6 +9,7 @@ pub enum AnimKey {
     Run(DirH),
     JumpUp(DirH),
     JumpDown(DirH),
+    Dash(DirH),
     Hurt(DirH),
 }
 
@@ -29,6 +30,7 @@ fn map_fn(key: AnimKey) -> &'static dyn Animation {
         // Normal
         Idle(dir) => row_2_l!(dir, 1, DUR, i2(0, 0)),
         Run(dir) => row_2_l!(dir, 4, DUR, i2(0, 2)),
+        Dash(dir) => row_2_l!(dir, 1, DUR, i2(0, 4)),
         JumpUp(dir) => row_2_l!(dir, 1, DUR, i2(2, 2)),
         JumpDown(dir) => row_2_l!(dir, 1, DUR, i2(0, 2)),
         Hurt(dir) => row_2!(dir, 1, 16, i2(0, 14)),
