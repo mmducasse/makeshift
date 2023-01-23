@@ -18,7 +18,7 @@ mod entities;
 mod systems;
 mod game;
 mod other;
-mod test;
+mod scene;
 
 #[macroquad::main("Makeshift")]
 async fn main() {
@@ -27,6 +27,8 @@ async fn main() {
 
     set_scale(2);
     
-    test::test_game::run().await;
-    //game::run().await;
+    loop {
+        let result = scene::game::run().await;
+        scene::end::run(result).await;
+    }
 }

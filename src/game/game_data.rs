@@ -1,5 +1,5 @@
 
-use xf::num::{ivec2::{IVec2}, irect::ir};
+use xf::num::{ivec2::{IVec2}, irect::ir, limit::Limit};
 
 use crate::{
     consts::*, 
@@ -12,6 +12,8 @@ use super::draw_data::DrawData;
 pub struct GameData {
     pub entities: Entities,
     pub level: Level,
+    pub player_health: Limit<i32>,
+    pub boss_health: Limit<i32>,
 }
 
 impl GameData {
@@ -21,6 +23,8 @@ impl GameData {
         Self {
             entities,
             level,
+            player_health: Limit::new_max(0, PLAYER_HEALTH_MAX),
+            boss_health: Limit::new_max(0, BOSS_HEALTH_MAX),
         }
     }
 

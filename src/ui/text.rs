@@ -11,10 +11,17 @@ use crate::{graphics::{textures::TextureId}, game::draw_data::DrawData};
 const CHAR_SPACING: IVec2 = i2(6, 8);
 const CHAR_BOUNDS: IRect = rect(0, 1, 6, 6);
 
-pub fn draw_text(s: &str, org: IVec2, d: &mut DrawData) {
+pub fn draw_text(s: &str, org: IVec2, center: bool, d: &mut DrawData) {
     let texture = d.textures().get(TextureId::Text);
 
     let mut pos = org;
+    
+    if center {
+        let w = (s.len() as i32) * CHAR_SPACING.x;
+        pos.x -= w / 2;
+
+        //draw_rect(ir(pos - i2(1, 1), i2(w, CHAR_SPACING.y) + i2(1, 1)), Color::WHITE)
+    }
 
     for c in s.chars() {
         let src_pos = lookup(c);

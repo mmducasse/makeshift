@@ -10,9 +10,10 @@ use crate::{
 use super::{player::Player, state::State, consts::*};
 
 
-pub fn start(player: &mut Player, damage: i32, g: &GameData) {
+pub fn start(player: &mut Player, damage: i32, g: &mut GameData) {
     player.state = State::Hurt;
     player.grace_timer = Countdown::new(GRACE_TIME);
+    g.player_health -= damage;
 }
 
 pub fn update(player: &mut Player, g: &GameData) {

@@ -10,9 +10,10 @@ use crate::{
 use super::{state::State, consts::*, test_boss::TestBoss};
 
 
-pub fn start(boss: &mut TestBoss, damage: i32, g: &GameData) {
+pub fn start(boss: &mut TestBoss, damage: i32, g: &mut GameData) {
     boss.state = State::Hurt;
     boss.grace_timer = Countdown::new(GRACE_TIME);
+    g.boss_health -= damage;
 }
 
 pub fn update(boss: &mut TestBoss, g: &GameData) {
