@@ -17,7 +17,7 @@ impl Entity for Player {
         self.state.update(self, g);
 
         // todo delete
-        if is_key_pressed(KeyCode::X) {
+        if is_key_pressed(KeyCode::X) && self.grace_timer.is_done() {
             let vel_x = self.face_dir().unit().x as f32 * 4.0;
             spawn_entity(Bullet::new(true, self.bounds().center(), f2(vel_x, 0.)), g);
         }

@@ -1,6 +1,8 @@
+use xf::num::ivec2::IVec2;
+
 use crate::{
     game::game_data::GameData, 
-    entities::bosses::test_boss::{state_normal, state_jump, state_hurt}
+    entities::bosses::test_boss::{state_normal, state_jump, state_hurt, state_fly}
 };
 
 use super::{test_boss::TestBoss, anim::AnimKey};
@@ -13,6 +15,8 @@ pub enum State {
     Run,
     Dash,
     Jump,
+    FlyTo(IVec2),
+    Float,
     Hurt,
 }
 
@@ -26,7 +30,7 @@ impl State {
             Idle => AnimKey::Idle(dir),
             Run => AnimKey::Run(dir),
             Dash => AnimKey::Dash(dir),
-            Jump => if boss.d.vel.y < 0.0 {
+            Jump | FlyTo(_) | Float => if boss.d.vel.y < 0.0 {
                 AnimKey::JumpUp(dir)
             } else {
                 AnimKey::JumpDown(dir)
@@ -41,6 +45,7 @@ impl State {
         match self {
             Idle | Run | Dash => { state_normal::update(boss, g); },
             Jump => { state_jump::update(boss, g); },
+            FlyTo(_) | Float => { state_fly::update(boss, g); },
             Hurt => { state_hurt::update(boss, g); },
         }
     }
