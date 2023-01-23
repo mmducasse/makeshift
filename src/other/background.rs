@@ -1,7 +1,7 @@
-use macroquad::shapes::draw_rectangle;
+
 use xf::{num::{ivec2::{IVec2, i2}, irect::ir}, gl::{bitmap::Bitmap, color::Color}};
 
-use crate::{game::{game_data::GameData, draw_data::DrawData}, consts::*, graphics::textures::TextureId};
+use crate::{game::{draw_data::DrawData}, consts::*, graphics::textures::TextureId};
 
 const LAYER_1_X_SPEED: f32 = 1.0;
 const LAYER_2_X_SPEED: f32 = 0.5;

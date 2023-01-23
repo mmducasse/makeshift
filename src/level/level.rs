@@ -1,6 +1,6 @@
 use xf::{map::tilemap::Tilemap, num::{ivec2::{IVec2, i2}, irect::{IRect, ir}}, gl::bitmap::Bitmap};
 
-use crate::{consts::P16, game::{draw_data::DrawData, game_data::GameData}, other::background::Background};
+use crate::{consts::P16, game::{draw_data::DrawData}, other::background::Background};
 
 use super::tile::{Tile, TileType};
 

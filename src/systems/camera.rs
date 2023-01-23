@@ -1,6 +1,6 @@
 use xf::num::{ivec2::IVec2, irect::IRect};
 
-use crate::{game::game_data::GameData, entities::{entity::Entity, type_::EntityType}};
+use crate::{game::game_data::GameData, entities::{type_::EntityType}};
 
 
 pub struct Camera {

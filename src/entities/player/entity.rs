@@ -1,9 +1,9 @@
 use macroquad::prelude::{KeyCode, is_key_pressed};
-use xf::num::{ivec2::{IVec2, i2}, fvec2::f2};
+use xf::num::{ivec2::{IVec2}, fvec2::f2};
 
-use crate::{entities::{entity::Entity, data::EntityData, spawn::spawn_entity, bullets::bullet::Bullet, type_::EntityType}, game::{game_data::GameData, draw_data::DrawData}, graphics::textures::TextureId};
+use crate::{entities::{entity::Entity, data::EntityData, spawn::spawn_entity, bullets::bullet::Bullet}, game::{game_data::GameData, draw_data::DrawData}, graphics::textures::TextureId};
 
-use super::{player::Player, state::State, state_hurt};
+use super::player::Player;
 
 
 

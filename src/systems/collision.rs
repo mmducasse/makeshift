@@ -1,6 +1,6 @@
 use xf::num::{irect::{IRect, rect, ir}, ivec2::IVec2};
 
-use crate::{game::game_data::GameData, consts::P16, level::tile::TileType};
+use crate::{game::game_data::GameData, consts::P16};
 
 /// Returns the deflection vector that results from colliding the
 /// box collider with the tilemap.

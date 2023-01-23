@@ -1,8 +1,13 @@
 
 use macroquad::prelude::is_key_pressed;
-use xf::{data::dir_h::DirH, num::{ivec2::{IVec2, i2}, irect::IRect}};
+use xf::num::ivec2::{IVec2, i2};
 
-use crate::{game::game_data::GameData, consts::{P16, P8}, level::tile::TileType, entities::entity::Entity, systems::collision::is_wall_at};
+use crate::{
+    game::game_data::GameData, 
+    consts::{P16, P8},
+    entities::entity::Entity, 
+    systems::collision::is_wall_at
+};
 
 use super::{test_boss::TestBoss, consts::RUN_SPEED_X};
 
@@ -52,7 +57,7 @@ impl Ai {
 
 fn check_for_debug_inputs(boss: &mut TestBoss) {
     use macroquad::prelude::KeyCode;
-    use State::*;
+    
     const STATES: &[(KeyCode, State)] = &[
         (KeyCode::Key1, State::Idle),
         (KeyCode::Key2, State::Running),

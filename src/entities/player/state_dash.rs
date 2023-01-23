@@ -1,9 +1,11 @@
-use macroquad::prelude::{is_key_pressed, KeyCode, is_key_down};
+use macroquad::prelude::{is_key_pressed, is_key_down};
 use xf::{time::timer::Timer, data::dir_h::DirH};
 
 use crate::{
     systems::collision::{collide, get_colliders_near}, 
-    consts::GRAVITY, game::game_data::GameData, entities::entity::Entity, 
+    consts::GRAVITY, 
+    game::game_data::GameData, 
+    entities::entity::Entity, 
 };
 
 use super::{

@@ -1,4 +1,4 @@
-use xf::{gl::anim::{Animator, Animation}, data::dir_h::DirH, num::ivec2::i2};
+use xf::{gl::anim::{Animator, Animation}, num::ivec2::i2};
 
 use crate::{entities::bullets::type_::BulletType, consts::P16, row_l};
 

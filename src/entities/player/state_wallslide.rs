@@ -1,4 +1,4 @@
-use macroquad::prelude::{is_key_pressed, KeyCode};
+use macroquad::prelude::{is_key_pressed};
 
 use crate::{systems::collision::{collide, get_colliders_near}, game::game_data::GameData, entities::entity::Entity};
 

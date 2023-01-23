@@ -1,4 +1,4 @@
-use macroquad::prelude::{KeyCode, is_key_down};
+use macroquad::prelude::{is_key_down};
 
 use crate::{
     io::controller::get_dir_h_down, 

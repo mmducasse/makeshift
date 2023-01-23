@@ -1,15 +1,12 @@
 //#![forbid(unsafe_code)]
 #![allow(dead_code)]
-#![allow(unused_imports)]
+//#![allow(unused_imports)]
 //#![allow(non_camel_case_types)]
 #![allow(unused_variables)]
-#![allow(unused_mut)]
+//#![allow(unused_mut)]
 //#![allow(unused_must_use)]
 
-use crate::{
-    graphics::window::set_scale, 
-    consts::SCREEN_SIZE
-};
+use crate::graphics::window::set_scale;
 
 mod consts;
 mod common;

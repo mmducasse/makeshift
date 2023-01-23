@@ -1,4 +1,4 @@
-use xf::num::{ivec2::IVec2, irect::{IRect, ir}};
+use xf::num::{ivec2::IVec2, irect::{IRect}};
 
 use crate::game::{game_data::GameData, draw_data::DrawData};
 

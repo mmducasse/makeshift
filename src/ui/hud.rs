@@ -1,4 +1,3 @@
-use std::fmt::format;
 
 use xf::{num::{ivec2::{IVec2, i2}, irect::IRect}, gl::{bitmap::Bitmap, color::Color}};
 

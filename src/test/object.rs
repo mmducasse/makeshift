@@ -1,11 +1,11 @@
 use xf::{
     gl::{bitmap::Bitmap, color::Color}, 
-    num::{irect::{ir, self, rect}, ivec2::IVec2}
+    num::{irect::{rect}, ivec2::IVec2}
 };
 
 use crate::{
     io::controller::get_dir_down, 
-    game::{game_data::GameData, draw_data::DrawData}, 
+    game::{draw_data::DrawData}, 
     graphics::textures::TextureId
 };
 

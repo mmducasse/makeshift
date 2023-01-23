@@ -1,12 +1,11 @@
-use macroquad::prelude::{is_key_pressed, KeyCode};
-use xf::num::ivec2::i2;
+use macroquad::prelude::{is_key_pressed};
 
 use crate::{
     io::controller::get_dir_h_down, 
     systems::collision::{collide, get_colliders_near}, 
     consts::GRAVITY, 
     game::game_data::GameData, 
-    entities::{entity::Entity, spawn::spawn_entity, bullets::bullet::Bullet},
+    entities::{entity::Entity},
 };
 
 use super::{player::Player, state::State, consts::*, state_jump, state_dash, state_util::check_collide_enemy};

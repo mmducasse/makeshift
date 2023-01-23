@@ -6,7 +6,7 @@ use macroquad::{
 
 use xf::{
     gl::{bitmap::Bitmap, color::Color, texture::Texture}, 
-    num::{ivec2::{i2, IVec2}, irect::{IRect, ir}}
+    num::{ivec2::{i2, IVec2}}
 };
 
 const DEFAULT: Color = Color::WHITE;

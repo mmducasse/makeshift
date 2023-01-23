@@ -1,18 +1,14 @@
 use std::process::exit;
 
 use macroquad::{window::next_frame, time::get_fps, prelude::{is_key_down, KeyCode}};
-use xf::num::{ivec2::{i2, IVec2}, irect::ir};
+use xf::num::{ivec2::{IVec2}};
 
 use crate::{
     game::{game_data::GameData, draw_data::DrawData}, 
-    graphics::{buffer::Buffer, textures::Textures}, 
-    consts::{SCREEN_SIZE, VIEW_SIZE, HUD_ORIGIN}, 
-    level::{load::load_level, level_info::LevelId}, 
-    entities::{player::player::Player, spawn::spawn_entity, bosses::test_boss::test_boss::TestBoss}, 
-    systems::camera::{self, Camera}, ui::hud::draw_hud
+    consts::*, 
+    systems::camera::{Camera}, ui::hud::draw_hud
 };
 
-use super::object::Object;
 
 
 

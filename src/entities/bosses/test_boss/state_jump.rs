@@ -1,15 +1,15 @@
-use macroquad::prelude::{KeyCode, is_key_down};
 
 use crate::{
-    io::controller::get_dir_h_down, 
     systems::collision::{collide, get_colliders_near}, 
-    consts::GRAVITY, game::game_data::GameData, entities::entity::Entity,
+    consts::GRAVITY, 
+    game::game_data::GameData, 
+    entities::entity::Entity,
 };
 
 use super::{
     state::State, 
-    consts::{JUMP_RELEASE_VEL_Y, JUMP_VEL_Y, WALLSLIDE_VEL_Y, RUN_SPEED_X, MAX_FALL_VEL_Y},
-    state_normal, test_boss::TestBoss, state_util::check_collide_enemy
+    test_boss::TestBoss, 
+    state_util::check_collide_enemy
 };
 
 pub fn update(boss: &mut TestBoss, g: &mut GameData) {

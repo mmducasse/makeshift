@@ -1,7 +1,5 @@
-use macroquad::prelude::{is_key_pressed, KeyCode};
 
 use crate::{
-    io::controller::get_dir_h_down, 
     systems::collision::{collide, get_colliders_near}, 
     consts::GRAVITY, 
     game::game_data::GameData, entities::entity::Entity,

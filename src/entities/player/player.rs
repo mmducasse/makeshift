@@ -1,16 +1,13 @@
-use std::rc::Rc;
 
 use xf::{
-    num::{fvec2::FVec2, ivec2::{IVec2, i2}, irect::{IRect, ir, rect}}, 
+    num::{ivec2::{IVec2}, irect::{IRect, rect}}, 
     data::dir_h::DirH, 
     time::{timer::Timer, countdown::Countdown}, 
-    gl::{texture::Texture, anim::Animator}
+    gl::{anim::Animator}
 };
 
 use crate::{
-    entities::{data::EntityData, type_::EntityType}, 
-    graphics::textures::TextureId, 
-    game::{game_data::GameData, draw_data::DrawData}, consts::P16
+    entities::{data::EntityData, type_::EntityType},
 };
 
 use super::{state::State, anim::{AnimKey, animator}};

@@ -1,4 +1,4 @@
-use std::{mem::replace, ops::Deref, f32::consts::E};
+use std::{mem::replace, ops::Deref};
 
 use xf::num::ivec2::IVec2;
 
@@ -6,9 +6,8 @@ use crate::game::{draw_data::DrawData, game_data::GameData};
 
 use super::{
     entity::Entity, 
-    player::player::Player, 
-    bosses::test_boss::test_boss::TestBoss, 
-    type_::EntityType, dummy::Dummy,
+    type_::EntityType, 
+    dummy::Dummy,
 };
 
 

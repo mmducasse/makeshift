@@ -1,15 +1,13 @@
-use macroquad::prelude::{is_key_pressed, KeyCode};
-use xf::{num::ivec2::i2, time::{timer::Timer, countdown::Countdown}};
+
+use xf::{time::{countdown::Countdown}};
 
 use crate::{
-    io::controller::get_dir_h_down, 
-    systems::collision::{collide, get_colliders_near}, 
-    consts::GRAVITY, 
+    systems::collision::{collide, get_colliders_near},
     game::game_data::GameData, 
-    entities::{entity::Entity, spawn::spawn_entity, bullets::bullet::Bullet},
+    entities::{entity::Entity},
 };
 
-use super::{player::Player, state::State, consts::*, state_jump, state_dash};
+use super::{player::Player, state::State, consts::*};
 
 
 pub fn start(player: &mut Player, damage: i32, g: &GameData) {

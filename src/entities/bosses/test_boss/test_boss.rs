@@ -1,21 +1,17 @@
 use xf::{
     num::{
-        fvec2::FVec2, 
-        ivec2::{IVec2, i2}, 
-        irect::{IRect, ir, rect}
+        ivec2::IVec2, 
+        irect::{IRect, rect}
     }, 
     data::dir_h::DirH, 
     gl::anim::Animator, time::countdown::Countdown
 };
 
-use crate::{
-    game::{game_data::GameData, draw_data::DrawData}, 
-    graphics::textures::TextureId, 
-    entities::{data::EntityData, type_::EntityType}, 
-    consts::P16};
+use crate::entities::{data::EntityData, type_::EntityType};
 
 use super::{
-    state::State, anim::{animator, AnimKey}, 
+    state::State, 
+    anim::{animator, AnimKey}, 
     ai::Ai, consts::JUMP_VEL_Y
 };
 

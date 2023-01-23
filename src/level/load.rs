@@ -5,7 +5,7 @@ use xf::{map::{tiled_json::{tileset::{JsonTileset, JsonTile}, tilemap::{JsonTile
 
 use crate::{graphics::buffer::convert_mq_image_to_xf_texture, entities::{player::player::Player, entity::Entity, entities::Entities, bosses::test_boss::test_boss::TestBoss}};
 
-use super::{level_info::LevelId, tilemap_info, level::Level, tile::{Tile, TileType}};
+use super::{level_info::LevelId, level::Level, tile::{Tile, TileType}};
 
 
 

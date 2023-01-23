@@ -2,7 +2,7 @@
 use xf::{
     num::{ivec2::{IVec2, i2}, 
     irect::{ir, rect, IRect}}, 
-    gl::{color::Color, bitmap::Bitmap}
+    gl::{bitmap::Bitmap}
 };
 
 use crate::{graphics::{textures::TextureId}, game::draw_data::DrawData};

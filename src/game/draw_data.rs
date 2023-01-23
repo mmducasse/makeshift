@@ -1,4 +1,3 @@
-use xf::{gl::bitmap::Bitmap, num::ivec2::IVec2};
 
 use crate::{
     graphics::{textures::Textures, buffer::Buffer}, 

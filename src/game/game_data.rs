@@ -1,12 +1,10 @@
-use std::mem::replace;
 
-use xf::num::{ivec2::{i2, IVec2}, irect::ir};
+use xf::num::{ivec2::{IVec2}, irect::ir};
 
 use crate::{
-    graphics::buffer::Buffer, 
     consts::*, 
     level::{level::Level, load::load_level, level_info::LevelId}, 
-    entities::{player::player::Player, bosses::test_boss::test_boss::TestBoss, entity::Entity, entities::Entities}
+    entities::{entities::Entities}
 };
 
 use super::draw_data::DrawData;
