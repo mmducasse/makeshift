@@ -8,7 +8,7 @@ use crate::{
     consts::{P16, P8}
 };
 
-use super::test_boss::TestBoss;
+use super::{test_boss::TestBoss, consts::RESET_TIME};
 
 const T_IDLE: u32 = 30;
 
@@ -52,6 +52,7 @@ pub struct Ai {
     state: AiState,
     state_timer: Countdown,
     queue: Vec<AiState>,
+    can_reset: bool,
 }
 
 impl Ai {
@@ -60,6 +61,7 @@ impl Ai {
             state: AiState::Idle(0),
             state_timer: Countdown::new(0),
             queue: vec![AiState::Idle(15)],
+            can_reset: true,
         }
     }
 
@@ -67,8 +69,12 @@ impl Ai {
         use AiState::*;
 
         if !boss.grace_timer.is_done() {
-            reset_ai(boss);
-            return;
+            if boss.ai.can_reset {
+                reset_ai(boss);
+                return;
+            }
+        } else {
+            boss.ai.can_reset = true;
         }
 
         boss.ai.state_timer.decrement();
@@ -135,9 +141,10 @@ fn is_state_done(boss: &mut TestBoss) -> bool {
 }
 
 fn reset_ai(boss: &mut TestBoss) {
-    boss.ai.state = AiState::Idle(0);
-    boss.ai.state_timer = Countdown::new(0);
+    boss.ai.state = AiState::Idle(RESET_TIME);
+    boss.ai.state_timer = Countdown::new(RESET_TIME);
     boss.ai.queue.clear();
+    boss.ai.can_reset = false;
 }
 
 fn add_states(queue: &mut Vec<AiState>, seed: usize) {

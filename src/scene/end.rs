@@ -1,5 +1,5 @@
 use macroquad::{window::next_frame, prelude::{is_key_pressed, KeyCode}};
-use xf::{num::{ivec2::IVec2, irect::IRect}, gl::{bitmap::Bitmap, color::Color}};
+use xf::{num::{ivec2::{IVec2, i2}, irect::IRect}, gl::{bitmap::Bitmap, color::Color}};
 
 use crate::{ui::text::draw_text, game::{state::GameResult, draw_data::DrawData}, consts::SCREEN_SIZE};
 
@@ -28,4 +28,6 @@ fn draw_result_screen(message: &str, d: &mut DrawData) {
     
     d.buffer().draw_rect(IRect::of_size(SCREEN_SIZE), Color::WHITE);
     draw_text(message, org, true, d);
+
+    draw_text("Press (Enter) to retry", org + i2(0, 16), true, d);
 }

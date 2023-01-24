@@ -5,10 +5,10 @@ use crate::{
     game::game_data::GameData, entities::entity::Entity,
 };
 
-use super::{test_boss::TestBoss, state::State, state_util::check_collide_enemy, consts::{RUN_SPEED_X, DASH_SPEED_X}};
+use super::{test_boss::TestBoss, state::State, state_util::check_collide_enemy, consts::{RUN_SPEED_X, DASH_SPEED_X, MARGIN}};
 
 pub fn update(boss: &mut TestBoss, target_x: i32, g: &mut GameData) {
-    if f32::abs(target_x as f32 - boss.d.pos.x) <= DASH_SPEED_X {
+    if f32::abs(target_x as f32 - boss.d.pos.x) <= DASH_SPEED_X + MARGIN {
         boss.d.pos.x = target_x as f32;
         boss.d.vel.x = 0.0;
     } else {

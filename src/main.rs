@@ -25,7 +25,7 @@ async fn main() {
     println!("*** Boss Rush Jam 2023 ***");
     println!("      \"Makeshift\" ");
 
-    set_scale(2);
+    set_scale(3);
     
     loop {
         let result = scene::game::run().await;

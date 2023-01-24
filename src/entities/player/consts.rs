@@ -12,7 +12,7 @@ pub const WALLSLIDE_VEL_Y: f32 = 1.0;
 pub const BULLET_SPEED: f32 = 4.0;
 
 pub const DASH_TIME_S: u32 = 10;
-pub const GRACE_TIME: u32 = 30;
+pub const GRACE_TIME: u32 = 60;
 
 pub const JUMP_KEY: KeyCode = KeyCode::Space;
 pub const DASH_KEY: KeyCode = KeyCode::Down;
