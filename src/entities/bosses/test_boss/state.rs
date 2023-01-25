@@ -13,7 +13,7 @@ use super::{test_boss::TestBoss, anim::AnimKey};
 pub enum State {
     Idle,
     RunTo(i32),
-    DashTo(i32),
+    Dash { from_x: i32, to_x: i32, start_t: u64 },
     Jump,
     FlyTo { target: IVec2, speed: f32},
     Float,
@@ -29,7 +29,7 @@ impl State {
         match self {
             Idle => AnimKey::Idle(dir),
             RunTo(_) => AnimKey::Run(dir),
-            DashTo(_) => AnimKey::Dash(dir),
+            Dash { .. } => AnimKey::Dash(dir),
             Jump | FlyTo { .. }  | Float => if boss.d.vel.y < 0.0 {
                 AnimKey::JumpUp(dir)
             } else {
@@ -44,7 +44,7 @@ impl State {
 
         match self {
             Idle | RunTo(_) => { state_normal::update(boss, g); },
-            DashTo(x) => { state_dash::update(boss, x, g); },
+            Dash { from_x, to_x, start_t  } => { state_dash::update(boss, from_x, to_x, start_t, g); },
             Jump => { state_jump::update(boss, g); },
             FlyTo { .. } | Float => { state_fly::update(boss, g); },
             Hurt => { state_hurt::update(boss, g); },

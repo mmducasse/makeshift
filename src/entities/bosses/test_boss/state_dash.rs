@@ -1,4 +1,6 @@
 
+use macroquad::miniquad::start;
+
 use crate::{
     systems::collision::{collide, get_colliders_near}, 
     consts::GRAVITY, 
@@ -7,15 +9,10 @@ use crate::{
 
 use super::{test_boss::TestBoss, state::State, state_util::check_collide_enemy, consts::{RUN_SPEED_X, DASH_SPEED_X, MARGIN}};
 
-pub fn update(boss: &mut TestBoss, target_x: i32, g: &mut GameData) {
-    if f32::abs(target_x as f32 - boss.d.pos.x) <= DASH_SPEED_X + MARGIN {
-        boss.d.pos.x = target_x as f32;
-        boss.d.vel.x = 0.0;
-    } else {
-        boss.d.vel.x = boss.dir.unit().x as f32 * DASH_SPEED_X;
-        boss.d.vel.y = 0.0;
-        boss.d.pos += boss.d.vel;
-    }
+pub fn update(boss: &mut TestBoss, from_x: i32, to_x: i32, start_t: u64, g: &mut GameData) {
+    let dt = g.frame_num() - start_t;
+    let dx = i32::signum(to_x - from_x) as f32 * DASH_SPEED_X;
+    boss.d.pos.x = from_x as f32 + dx;
 
     let colliders = get_colliders_near(boss.bounds().center(), g);
     let deflection = collide(boss.bounds(), colliders, Some(g.level.bounds()));

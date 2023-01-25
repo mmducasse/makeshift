@@ -4,6 +4,7 @@
 pub enum GameResult {
     Win,
     Loss,
+    RequestedRestart,
 }
 
 #[derive(Clone, Copy, PartialEq, Eq)]

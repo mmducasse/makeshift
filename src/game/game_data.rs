@@ -14,7 +14,7 @@ pub struct GameData {
     pub level: Level,
     pub player_health: Limit<i32>,
     pub boss_health: Limit<i32>,
-    frame_num: usize,
+    frame_num: u64,
 }
 
 impl GameData {
@@ -30,7 +30,7 @@ impl GameData {
         }
     }
 
-    pub fn frame_num(&self) -> usize { self.frame_num }
+    pub fn frame_num(&self) -> u64 { self.frame_num }
 
     pub fn update(&mut self) {
         self.level.update();

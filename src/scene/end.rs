@@ -5,6 +5,10 @@ use crate::{ui::text::draw_text, game::{state::GameResult, draw_data::DrawData},
 
 pub async fn run(result: GameResult) {
 
+    if result == GameResult::RequestedRestart {
+        return;
+    }
+
     let mut d = DrawData::new();
     let message = if result == GameResult::Win {
         "You Win!"

@@ -11,9 +11,10 @@ use crate::{
 use super::{test_boss::TestBoss, consts::RESET_TIME};
 
 const T_IDLE: u32 = 30;
+const TIMEOUT: u32 = 300;
 
 const X_0: i32 = 1 * P16.x;
-const X_1: i32 = 3 * P16.x;
+const X_1: i32 = 2 * P16.x;
 const X_2: i32 = (6 * P16.x) + P8.x;
 const X_3: i32 = 11 * P16.x;
 const X_4: i32 = 12 * P16.x;
@@ -43,7 +44,7 @@ impl AiState {
 
         match self {
             Idle(t) | Whirl(_, t) | FloorCeil(t) | Float(t) => t,
-            _ => 0,
+            _ => TIMEOUT,
         }
     }
 }
@@ -81,7 +82,7 @@ impl Ai {
         
         if is_state_done(boss) {
             if boss.ai.queue.is_empty() {
-                add_states(&mut boss.ai.queue, g.frame_num());
+                add_states(&mut boss.ai.queue, g.frame_num(), g.boss_health.value);
             }
             
             let state = boss.ai.queue.remove(0);
@@ -106,7 +107,7 @@ impl Ai {
                 boss.state = state::State::RunTo(x);
             },
             DashToX(x) => {
-                boss.state = state::State::DashTo(x);
+                boss.state = state::State::Dash { from_x: boss.d.pos.x as i32, to_x: x, start_t: g.frame_num() };
                 boss.face_toward(x);
             },
             FlyToXY { target, speed } => {
@@ -126,15 +127,17 @@ impl Ai {
 fn is_state_done(boss: &mut TestBoss) -> bool {
     use AiState::*;
 
+    let timed_out = boss.ai.state_timer.is_done();
+
     match boss.ai.state {
         Idle(_) | Whirl(_, _) | FloorCeil(_) | Float(_) => {
-            boss.ai.state_timer.is_done()
+            timed_out
         },
         RunToX(x) | DashToX(x) => {
-            i32::abs(boss.d.pos.x as i32 - x) <= 1
+            timed_out || (i32::abs(boss.d.pos.x as i32 - x) <= 1)
         },
         FlyToXY { target, .. } => {
-            boss.d.pos.as_ivec2() == target
+            timed_out || (boss.d.pos.as_ivec2() == target)
         },
         Shoot(_) | Face(_) => true,
     }
@@ -147,12 +150,66 @@ fn reset_ai(boss: &mut TestBoss) {
     boss.ai.can_reset = false;
 }
 
-fn add_states(queue: &mut Vec<AiState>, seed: usize) {
+
+fn add_states(queue: &mut Vec<AiState>, seed: u64, health: i32) {
     use AiState::*;
     use ShotType::*;
 
-    let mut next = match seed % 4 {
+    const T_WAVE: u32 = 10;
+
+    let selection = if health > 12 {
+        seed % 1
+    } else if health > 10 {
+        seed % 2
+    } else {
+        (seed % 6) + 1
+    };
+
+    let mut next = match selection {
+        // Run to each side and shoot.
         0 => vec![
+            RunToX(X_0), 
+            RunToX(X_1), 
+            Shoot(Single),
+            Idle(20),
+            RunToX(X_4),
+            RunToX(X_3), 
+            Shoot(Single),
+            Idle(20),
+        ],
+
+        // Run and dash around.
+        1 => vec![
+            DashToX(X_1), 
+            RunToX(X_0), 
+            RunToX(X_1), 
+            DashToX(X_3), 
+            RunToX(X_4), 
+            RunToX(X_3), 
+        ],
+
+        // Dash to each side and shoot.
+        2 => vec![
+            DashToX(X_0), 
+            Face(DirH::R), 
+            Shoot(Single),
+            Idle(20),
+            DashToX(X_4),
+            Face(DirH::L),  
+            Shoot(Single),
+            Idle(20),
+        ],
+
+        // Dash around edges of arena.
+        3 => vec![
+            DashToX(X_0), 
+            FlyToXY { target: i2(X_0, Y_TOP), speed: FLY_SPEED_FAST }, 
+            DashToX(X_4), 
+            FlyToXY { target: i2(X_4, Y_BOTTOM), speed: FLY_SPEED_FAST },
+        ],
+
+        // Shoot walls
+        4 => vec![
             DashToX(X_3),
             Face(DirH::L),
             Idle(30),
@@ -165,12 +222,12 @@ fn add_states(queue: &mut Vec<AiState>, seed: usize) {
         ],
 
         // Float to middle and shoot bursts.
-        1 => vec![
+        5 => vec![
             DashToX(X_1), 
             DashToX(X_3), 
             DashToX(X_1), 
             DashToX(X_3), 
-            RunToX(X_2), 
+            DashToX(X_2), 
             FlyToXY { target: CENTER_POINT, speed: FLY_SPEED_SLOW }, 
             Shoot(PlusBurst { angle: 0.0 }), 
             Float(30), 
@@ -181,24 +238,37 @@ fn add_states(queue: &mut Vec<AiState>, seed: usize) {
             Idle(60)
         ],
 
-        // Dash around edges of arena.
-        2 => vec![
+        // Cascade of bullets from ceiling.
+        _ => vec![
             DashToX(X_0), 
             FlyToXY { target: i2(X_0, Y_TOP), speed: FLY_SPEED_FAST }, 
+            DashToX(X_1), 
+            Face(DirH::R),
+            Idle(20),
+            Shoot(Wall),
+            Shoot(Down(3)),
+            Idle(T_WAVE),
+            Shoot(Down(4)),
+            Idle(T_WAVE),
+            Shoot(Down(5)),
+            Idle(T_WAVE),
+            Shoot(Down(6)),
+            Idle(T_WAVE),
+            Shoot(Down(7)),
+            Idle(T_WAVE),
+            Shoot(Down(8)),
+            Idle(T_WAVE),
+            Shoot(Down(9)),
+            Idle(T_WAVE),
+            Shoot(Down(10)),
+            Idle(T_WAVE),
+            Shoot(Down(11)),
+            Idle(T_WAVE),
+            Shoot(Down(12)),
+            Idle(T_WAVE),
             DashToX(X_4), 
             FlyToXY { target: i2(X_4, Y_BOTTOM), speed: FLY_SPEED_FAST },
         ],
-
-        _ => vec![
-            RunToX(X_2), 
-            DashToX(X_1), 
-            RunToX(X_2), 
-            DashToX(X_3)
-        ],
-        // 0 => vec![RunToX(X_POINT_2), DashToX(X_POINT_1), RunToX(X_POINT_2), DashToX(X_POINT_3)],
-        // 1 => vec![DashToX(X_POINT_1), Idle(T_IDLE), DashToX(X_POINT_3), Idle(T_IDLE)],
-        // 2 => vec![DashToX(X_POINT_1), DashToX(X_POINT_2), DashToX(X_POINT_1), DashToX(X_POINT_3), DashToX(X_POINT_2), DashToX(X_POINT_3)],
-        // _ => vec![RunToX(X_POINT_1), Idle(T_IDLE), RunToX(X_POINT_3), Idle(T_IDLE)],
     };
 
     queue.append(&mut next);
@@ -209,6 +279,7 @@ enum ShotType {
     Single,
     Wall,
     PlusBurst { angle: f32 },
+    Down(i32),
 }
 
 fn shoot(type_: ShotType, boss: &TestBoss, g: &mut GameData) {
@@ -222,10 +293,24 @@ fn shoot(type_: ShotType, boss: &TestBoss, g: &mut GameData) {
             shoot_one(c, a, g);
         },
         Wall => { 
+            shoot_one(c + i2(0, 8), a, g);
             shoot_one(c, a, g);
             shoot_one(c + i2(0, -8), a, g);
             shoot_one(c + i2(0, -16), a, g);
 
+            shoot_one(c + i2(0, 8), a + 0.5, g);
+            shoot_one(c, a + 0.5, g);
+            shoot_one(c + i2(0, -8), a + 0.5, g);
+            shoot_one(c + i2(0, -16), a + 0.5, g);
+
+            let c = c + i2(0, -7 * P16.y);
+
+            shoot_one(c + i2(0, 8), a, g);
+            shoot_one(c, a, g);
+            shoot_one(c + i2(0, -8), a, g);
+            shoot_one(c + i2(0, -16), a, g);
+
+            shoot_one(c + i2(0, 8), a + 0.5, g);
             shoot_one(c, a + 0.5, g);
             shoot_one(c + i2(0, -8), a + 0.5, g);
             shoot_one(c + i2(0, -16), a + 0.5, g);
@@ -235,6 +320,9 @@ fn shoot(type_: ShotType, boss: &TestBoss, g: &mut GameData) {
             shoot_one(c, a + angle + 0.25, g);
             shoot_one(c, a + angle + 0.50, g);
             shoot_one(c, a + angle + 0.75, g);
+        },
+        Down(x) => {
+            shoot_one(i2(x * P16.x + 8, 24), 0.25, g);
         },
     }
 }

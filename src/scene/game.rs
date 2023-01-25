@@ -1,6 +1,6 @@
 use std::process::exit;
 
-use macroquad::{window::next_frame, time::get_fps, prelude::{is_key_down, KeyCode}};
+use macroquad::{window::next_frame, time::get_fps, prelude::{is_key_down, KeyCode, is_key_pressed}};
 use xf::num::{ivec2::{IVec2}};
 
 use crate::{
@@ -37,8 +37,9 @@ pub async fn run() -> GameResult {
         // }
         // i += 1;
 
-        if is_key_down(KeyCode::Escape) {
-            exit(0);
+        if is_key_pressed(KeyCode::Escape) {
+            next_frame().await;
+            return GameResult::RequestedRestart;
         }
 
         // End //////////////////////////////////////////
