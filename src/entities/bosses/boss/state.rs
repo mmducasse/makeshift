@@ -2,11 +2,11 @@ use xf::num::ivec2::IVec2;
 
 use crate::{
     game::game_data::GameData, 
-    entities::bosses::test_boss::{state_idle, state_hurt, state_go}, 
+    entities::bosses::boss::{state_idle, state_hurt, state_go}, 
     consts::GRAVITY
 };
 
-use super::{test_boss::TestBoss, anim::AnimKey};
+use super::{boss::Boss, anim::AnimKey};
 
 #[derive(Clone, Copy, PartialEq)]
 pub enum GoType {
@@ -26,15 +26,11 @@ pub enum State {
         to_y: Option<i32>,
         start_t: u64 
     },
-    // RunTo { from_x: i32, to_x: i32, start_t: u64 },
-    // Dash { from_x: i32, to_x: i32, start_t: u64 },
-    // Jump,
-    // FlyTo { target: IVec2, speed: f32},
     Hurt,
 }
 
 impl State {
-    pub fn to_anim_key(self, boss: &TestBoss) -> AnimKey {
+    pub fn to_anim_key(self, boss: &Boss) -> AnimKey {
         use State::*;
 
         let dir = boss.dir;
@@ -59,7 +55,7 @@ impl State {
         }
     }
 
-    pub fn update(self, boss: &mut TestBoss, g: &mut GameData) {
+    pub fn update(self, boss: &mut Boss, g: &mut GameData) {
         use State::*;
 
         match self {

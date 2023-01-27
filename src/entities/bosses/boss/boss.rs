@@ -18,7 +18,7 @@ use super::{
 
 
 
-pub struct TestBoss {
+pub struct Boss {
     pub d: EntityData,
     pub dir: DirH,
     pub(super) state: State,
@@ -30,7 +30,7 @@ pub struct TestBoss {
 const DAMAGE: i32 = 1;
 const COLLIDER: IRect = rect(2, 2, 12, 14);
 
-impl TestBoss {
+impl Boss {
     pub fn new(pos: IVec2) -> Self {
         Self {
             d: EntityData::new(EntityType::Enemy(DAMAGE))

@@ -7,9 +7,9 @@ use crate::{
     game::game_data::GameData, entities::entity::Entity,
 };
 
-use super::{test_boss::TestBoss, state::State, state_util::check_collide_enemy, consts::{RUN_SPEED_X, DASH_SPEED_X}};
+use super::{boss::Boss, state::State, state_util::check_collide_enemy, consts::{RUN_SPEED_X, DASH_SPEED_X}};
 
-pub fn update(boss: &mut TestBoss, has_gravity: bool, g: &mut GameData) {
+pub fn update(boss: &mut Boss, has_gravity: bool, g: &mut GameData) {
     boss.d.vel.x = 0.0;
 
     if has_gravity {

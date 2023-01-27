@@ -9,14 +9,14 @@ use crate::{
 };
 
 use super::{
-    test_boss::TestBoss, 
+    boss::Boss, 
     state::{State, GoType}, 
     state_util::check_collide_enemy, 
     consts::{RUN_SPEED_X, DASH_SPEED_X, FLY_SPEED_SLOW, FLY_SPEED_FAST}
 };
 
 pub fn update(
-    boss: &mut TestBoss,
+    boss: &mut Boss,
     type_: GoType, 
     from: IVec2, 
     to_x: i32, 

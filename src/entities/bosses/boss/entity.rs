@@ -6,11 +6,11 @@ use crate::{
     graphics::textures::TextureId
 };
 
-use super::{test_boss::TestBoss, ai::Ai};
+use super::{boss::Boss, ai::Ai};
 
 
 
-impl Entity for TestBoss {
+impl Entity for Boss {
     fn data(&self) -> &EntityData { &self.d }
 
     fn data_mut(&mut self) -> &mut EntityData { &mut self.d}
@@ -26,7 +26,7 @@ impl Entity for TestBoss {
 
     fn draw(&self, d: &mut DrawData, org: IVec2) {
         if self.grace_timer.remaining() % 2 == 0 {
-            let texture = d.textures().get(TextureId::TestBoss);
+            let texture = d.textures().get(TextureId::Boss);
             self.animator.draw(&texture, self.d.pos.as_ivec2() - org, d.buffer());
         }
     }

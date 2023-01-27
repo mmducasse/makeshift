@@ -1,5 +1,5 @@
 
-pub mod test_boss;
+pub mod boss;
 pub mod entity;
 mod consts;
 mod anim;

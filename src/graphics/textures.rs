@@ -9,7 +9,7 @@ pub enum TextureId {
     Text,
 
     Player,
-    TestBoss,
+    Boss,
     Bullets,
     CloudLayer1,
     CloudLayer2,
@@ -23,7 +23,7 @@ const fn get_bytes(id: TextureId) -> &'static [u8] {
     match id {
         Text => include_bytes!("../../assets/Sprites/font6x6.png"),
         Player => include_bytes!("../../assets/Sprites/Player.png"),
-        TestBoss => include_bytes!("../../assets/Sprites/TestBoss.png"),
+        Boss => include_bytes!("../../assets/Sprites/TestBoss.png"),
         Bullets => include_bytes!("../../assets/Sprites/Bullets.png"),
         CloudLayer1 => include_bytes!("../../assets/Sprites/CloudLayer1.png"),
         CloudLayer2 => include_bytes!("../../assets/Sprites/CloudLayer2.png"),

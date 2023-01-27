@@ -3,7 +3,7 @@ use std::{rc::Rc, str::FromStr};
 use macroquad::texture::Image;
 use xf::{map::{tiled_json::{tileset::{JsonTileset, JsonTile}, tilemap::{JsonTilemap, Object, Layer}}, tileset::Tileset, tilemap::Tilemap}, num::ivec2::i2};
 
-use crate::{graphics::buffer::convert_mq_image_to_xf_texture, entities::{player::player::Player, entity::Entity, entities::Entities, bosses::test_boss::test_boss::TestBoss}};
+use crate::{graphics::buffer::convert_mq_image_to_xf_texture, entities::{player::player::Player, entity::Entity, entities::Entities, bosses::boss::boss::Boss}};
 
 use super::{level_info::LevelId, level::Level, tile::{Tile, TileType}};
 
@@ -86,7 +86,7 @@ fn load_entity(object: &Object) -> Box<dyn Entity> {
     let pos = i2(object.x, object.y);
     match object.name.as_str() {
         "Player" => Box::new(Player::new(pos)),
-        "Boss" => Box::new(TestBoss::new(pos)),
+        "Boss" => Box::new(Boss::new(pos)),
         _ => panic!("Unexpected object name: {}", object.name),
     }
 }

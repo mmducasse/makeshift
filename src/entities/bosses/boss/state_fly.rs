@@ -7,9 +7,9 @@ use crate::{
     game::game_data::GameData, entities::entity::Entity,
 };
 
-use super::{test_boss::TestBoss, state::State, state_util::check_collide_enemy, consts::{RUN_SPEED_X, DASH_SPEED_X, FLY_SPEED_SLOW}};
+use super::{boss::Boss, state::State, state_util::check_collide_enemy, consts::{RUN_SPEED_X, DASH_SPEED_X, FLY_SPEED_SLOW}};
 
-pub fn update(boss: &mut TestBoss, g: &mut GameData) {
+pub fn update(boss: &mut Boss, g: &mut GameData) {
     if let State::FlyTo { target, speed } = boss.state {
         let delta = target.as_fvec2() - boss.d.pos;
         boss.dir = if delta.x < 0.0 { DirH::L } else { DirH::R };

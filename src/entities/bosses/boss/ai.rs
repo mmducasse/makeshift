@@ -5,11 +5,11 @@ use xf::{data::{spin::Spin, dir_h::DirH}, num::{ivec2::{IVec2, i2}, fvec2::f2}, 
 
 use crate::{
     game::game_data::GameData, 
-    entities::{entity::Entity, bosses::test_boss::{state::{self, GoType}, consts::{FLY_SPEED_SLOW, FLY_SPEED_FAST, RUN_SPEED_X, DASH_SPEED_X}}, spawn::spawn_entity, bullets::bullet::Bullet}, 
+    entities::{entity::Entity, bosses::boss::{state::{self, GoType}, consts::{FLY_SPEED_SLOW, FLY_SPEED_FAST, RUN_SPEED_X, DASH_SPEED_X}}, spawn::spawn_entity, bullets::bullet::Bullet}, 
     consts::{P16, P8}
 };
 
-use super::{test_boss::TestBoss, consts::RESET_TIME};
+use super::{boss::Boss, consts::RESET_TIME};
 
 const T_IDLE: u32 = 30;
 const TIMEOUT: u32 = 300;
@@ -70,7 +70,7 @@ impl Ai {
         }
     }
 
-    pub fn update(boss: &mut TestBoss, g: &mut GameData) {
+    pub fn update(boss: &mut Boss, g: &mut GameData) {
         use AiState::*;
 
         if !boss.grace_timer.is_done() {
@@ -140,7 +140,7 @@ impl Ai {
     }
 }
 
-fn reset_ai(boss: &mut TestBoss) {
+fn reset_ai(boss: &mut Boss) {
     boss.ai.state = AiState::Idle(RESET_TIME);
     boss.ai.state_timer = Countdown::new(RESET_TIME);
     boss.ai.queue.clear();
@@ -279,7 +279,7 @@ enum ShotType {
     Down(i32),
 }
 
-fn shoot(type_: ShotType, boss: &TestBoss, g: &mut GameData) {
+fn shoot(type_: ShotType, boss: &Boss, g: &mut GameData) {
     use ShotType::*;
 
     let c = boss.bounds().center();

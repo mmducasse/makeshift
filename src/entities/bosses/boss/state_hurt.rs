@@ -7,16 +7,16 @@ use crate::{
     entities::entity::Entity,
 };
 
-use super::{state::State, consts::*, test_boss::TestBoss};
+use super::{state::State, consts::*, boss::Boss};
 
 
-pub fn start(boss: &mut TestBoss, damage: i32, g: &mut GameData) {
+pub fn start(boss: &mut Boss, damage: i32, g: &mut GameData) {
     boss.state = State::Hurt;
     boss.grace_timer = Countdown::new(GRACE_TIME);
     g.boss_health -= damage;
 }
 
-pub fn update(boss: &mut TestBoss, g: &GameData) {
+pub fn update(boss: &mut Boss, g: &GameData) {
     boss.d.vel.x = 0.0;
     boss.d.vel.y = 0.0;
     boss.d.pos += boss.d.vel;
