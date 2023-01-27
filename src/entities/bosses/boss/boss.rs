@@ -12,7 +12,6 @@ use crate::entities::{data::EntityData, type_::EntityType, entity::Entity};
 use super::{
     state::State, 
     anim::{animator, AnimKey}, 
-    consts::JUMP_VEL_Y, 
     ai::Ai, 
 };
 

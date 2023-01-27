@@ -10,9 +10,9 @@ use crate::{
 
 use super::{
     boss::Boss, 
-    state::{State, GoType}, 
+    state::GoType, 
     state_util::check_collide_enemy, 
-    consts::{RUN_SPEED_X, DASH_SPEED_X, FLY_SPEED_SLOW, FLY_SPEED_FAST}
+    consts::{RUN_SPEED_X, DASH_SPEED_X}
 };
 
 pub fn update(

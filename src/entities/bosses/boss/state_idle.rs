@@ -1,13 +1,11 @@
 
-use xf::data::dir_h::DirH;
-
 use crate::{
     systems::collision::{collide, get_colliders_near}, 
     consts::GRAVITY, 
     game::game_data::GameData, entities::entity::Entity,
 };
 
-use super::{boss::Boss, state::State, state_util::check_collide_enemy, consts::{RUN_SPEED_X, DASH_SPEED_X}};
+use super::{boss::Boss, state_util::check_collide_enemy};
 
 pub fn update(boss: &mut Boss, has_gravity: bool, g: &mut GameData) {
     boss.d.vel.x = 0.0;

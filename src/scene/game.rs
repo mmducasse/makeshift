@@ -1,7 +1,6 @@
-use std::process::exit;
 
-use macroquad::{window::next_frame, time::get_fps, prelude::{is_key_down, KeyCode, is_key_pressed}};
-use xf::num::{ivec2::{IVec2}};
+use macroquad::{window::next_frame, prelude::{KeyCode, is_key_pressed}};
+use xf::num::ivec2::{IVec2};
 
 use crate::{
     game::{game_data::GameData, draw_data::DrawData, state::GameResult}, 
