@@ -1,10 +1,11 @@
+use core::time;
 use std::f32::consts::PI;
 
 use xf::{data::{spin::Spin, dir_h::DirH}, num::{ivec2::{IVec2, i2}, fvec2::f2}, time::{countdown::Countdown}};
 
 use crate::{
     game::game_data::GameData, 
-    entities::{entity::Entity, bosses::test_boss::{state, consts::{FLY_SPEED_SLOW, FLY_SPEED_FAST}}, spawn::spawn_entity, bullets::bullet::Bullet}, 
+    entities::{entity::Entity, bosses::test_boss::{state::{self, GoType}, consts::{FLY_SPEED_SLOW, FLY_SPEED_FAST, RUN_SPEED_X, DASH_SPEED_X}}, spawn::spawn_entity, bullets::bullet::Bullet}, 
     consts::{P16, P8}
 };
 
@@ -39,12 +40,15 @@ enum AiState {
 }
 
 impl AiState {
-    pub fn time(self) -> u32 {
+    pub fn time(self, pos: IVec2) -> u32 {
         use AiState::*;
 
         match self {
             Idle(t) | Whirl(_, t) | FloorCeil(t) | Float(t) => t,
-            _ => TIMEOUT,
+            RunToX(x) => (i32::abs(pos.x - x) as f32 / RUN_SPEED_X) as u32,
+            DashToX(x) => (i32::abs(pos.x - x) as f32 / DASH_SPEED_X) as u32,
+            FlyToXY { target, speed } => ((target - pos).as_fvec2().magnitude() / speed) as u32,
+            _ => 0,
         }
     }
 }
@@ -80,14 +84,14 @@ impl Ai {
 
         boss.ai.state_timer.decrement();
         
-        if is_state_done(boss) {
+        if boss.ai.state_timer.is_done() {
             if boss.ai.queue.is_empty() {
                 add_states(&mut boss.ai.queue, g.frame_num(), g.boss_health.value);
             }
             
             let state = boss.ai.queue.remove(0);
             boss.ai.state = state;
-            boss.ai.state_timer = Countdown::new(boss.ai.state.time());
+            boss.ai.state_timer = Countdown::new(boss.ai.state.time(boss.d.pos.as_ivec2()));
 
             println!("New state = {:?}", boss.ai.state);
 
@@ -95,6 +99,9 @@ impl Ai {
                 shoot(type_, boss, g);
             }
         }
+
+        let pos = boss.d.pos.as_ivec2();
+        let t = g.frame_num();
 
         match boss.ai.state {
             Idle(_) => {
@@ -104,42 +111,32 @@ impl Ai {
                 boss.dir = dir;
             },
             RunToX(x) => {
-                boss.state = state::State::RunTo(x);
+                boss.state = state::State::GoTo { 
+                    type_: GoType::Run, 
+                    from: pos, to_x: x, to_y: None, 
+                    start_t: t,
+                }
             },
             DashToX(x) => {
-                boss.state = state::State::Dash { from_x: boss.d.pos.x as i32, to_x: x, start_t: g.frame_num() };
-                boss.face_toward(x);
+                boss.state = state::State::GoTo { 
+                    type_: GoType::Dash, 
+                    from: pos, to_x: x, to_y: None, 
+                    start_t: t,
+                }
             },
             FlyToXY { target, speed } => {
-                boss.state = state::State::FlyTo { target, speed };
+                boss.state = state::State::GoTo { 
+                    type_: GoType::Fly(speed), 
+                    from: pos, to_x: target.x, to_y: Some(target.y), 
+                    start_t: t,
+                }
             },
             Float(_) => {
                 boss.state = state::State::Float;
             },
             Shoot(type_) => { }
-            // Whirl(_, _) => todo!(),
-            // FloorCeil(_) => todo!(),
             _ => { todo!() }
         }
-    }
-}
-
-fn is_state_done(boss: &mut TestBoss) -> bool {
-    use AiState::*;
-
-    let timed_out = boss.ai.state_timer.is_done();
-
-    match boss.ai.state {
-        Idle(_) | Whirl(_, _) | FloorCeil(_) | Float(_) => {
-            timed_out
-        },
-        RunToX(x) | DashToX(x) => {
-            timed_out || (i32::abs(boss.d.pos.x as i32 - x) <= 1)
-        },
-        FlyToXY { target, .. } => {
-            timed_out || (boss.d.pos.as_ivec2() == target)
-        },
-        Shoot(_) | Face(_) => true,
     }
 }
 

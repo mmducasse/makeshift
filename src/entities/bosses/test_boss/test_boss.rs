@@ -51,11 +51,4 @@ impl TestBoss {
             DirH::R
         };
     }
-
-    pub fn jump(&mut self) {
-        if self.state != State::Jump {
-            self.d.vel.y = JUMP_VEL_Y;
-            self.state = State::Jump;
-        }
-    }
 }
